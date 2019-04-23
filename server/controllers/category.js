@@ -1,5 +1,6 @@
 exports.index = (req, res) => {
     res.render('categories/index', {
-        title: 'Categories'
+        title: 'Categories',
+        currentPath: req.baseUrl
     });
 }
