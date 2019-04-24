@@ -4,9 +4,8 @@ import path from 'path';
 import dotenv from 'dotenv';
 
 // Routes
-import indexRoute from './routes/web/index';
-import categoryRouer from './routes/web/category';
-import errorController from './controllers/error';
+import HomeRoute, { CategoryRouter } from './routes/web';
+import { ErroController } from './controllers';
 // Middlewares
 import isAuth from './middlewares/is-auth';
 
@@ -22,12 +21,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(indexRoute);
-app.use('/categories', categoryRouer);
+app.use(HomeRoute);
+app.use('/categories', CategoryRouter);
 app.use('/products', isAuth, (req, res, next) => {
     next();
 });
 
-app.use(errorController.err404);
+app.use(ErroController.err404);
 
 app.listen(port, () => console.log(`App listening on port ${port}`));

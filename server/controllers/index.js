@@ -1,9 +1,10 @@
-export default class Index {
-    static index (req, res, next) {
-        res.render('default', {
-            title: 'Node commerce',
-            message: 'Welcome to Node Commerce project :)',
-            currentPath: req.baseUrl
-        });
-    }
-}
+import HomeController from './home';
+import CategoryController from './category';
+import ErroController from './error';
+
+export default HomeController;
+
+export {
+    CategoryController,
+    ErroController
+};

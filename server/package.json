@@ -9,6 +9,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec babel-node index.js"
   },
+  "engines": {
+    "node": "10.15.3"
+  },
   "license": "MIT",
   "dependencies": {
     "@hapi/joi": "^15.0.0",

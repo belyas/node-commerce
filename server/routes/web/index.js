@@ -1,9 +1,8 @@
-import express from 'express';
+import HomeRouter from './home';
+import CategoryRouter from './category';
 
-import indexController from '../../controllers/index';
+export default HomeRouter;
 
-const router = express.Router();
-
-router.get('/', indexController.index);
-
-export default router;
+export {
+    CategoryRouter
+};
