@@ -1,17 +1,18 @@
 require('dotenv').config();
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const path =  require('path');
+import express from 'express';
+import bodyParser from 'body-parser';
+import path from 'path';
+
+// Routes
+import indexRoute from './routes/web/index';
+import categoryRouer from './routes/web/category';
+import errorController from './controllers/error';
+// Middlewares
+import isAuth from './middlewares/is-auth';
 
 const app = express();
 const port = process.env.PORT || 8000;
-// Routes
-const indexRoute = require('./routes/web/index');
-const categoryRouer = require('./routes/web/category');
-const errorController =  require('./controllers/error');
-// Middlewares
-const isAuth = require('./middlewares/is-auth');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -22,6 +23,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(indexRoute);
 app.use('/categories', categoryRouer);
+app.use('/products', isAuth, (req, res, next) => {
+    next();
+});
 
 app.use(errorController.err404);
 

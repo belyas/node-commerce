@@ -1,5 +1,5 @@
-module.exports = (req, res, next) => {
-    if (false) {
+export default (req, res, next) => {
+    if (true) {
         return res.redirect('/');
     }
 
