@@ -15,6 +15,7 @@
     "rules": {
         "semi": ["error", "always"],
         "linebreak-style": ["error", "unix"],
-        "quotes": ["warn", "single"]
+        "quotes": ["warn", "single"],
+        "indent": ["warn", 4]
     }
 }

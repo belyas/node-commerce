@@ -1,7 +1,7 @@
 export default (req, res, next) => {
-    if (true) {
-        return res.redirect('/');
-    }
+    // if (true) {
+    //     return res.redirect('/');
+    // }
 
     next();
-}
+};

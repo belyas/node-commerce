@@ -1,8 +1,7 @@
-require('dotenv').config();
-
 import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
+import dotenv from 'dotenv';
 
 // Routes
 import indexRoute from './routes/web/index';
@@ -10,6 +9,8 @@ import categoryRouer from './routes/web/category';
 import errorController from './controllers/error';
 // Middlewares
 import isAuth from './middlewares/is-auth';
+
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 8000;
