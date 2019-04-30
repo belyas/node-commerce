@@ -44,15 +44,6 @@ app.use(session({
 }));
 app.use(csrfProtection);
 app.use(flash());
-
-app.use((req, res, next) => {
-    if (!req.session.user) {
-        return next();
-    }
-
-    // fetch current user and assign to req
-});
-
 app.use((req, res, next) => {
     res.locals.isAuthenticated = req.session.isLoggedIn;
     res.locals.csrfToken = req.csrfToken();

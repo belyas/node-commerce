@@ -11,43 +11,5 @@ const userSchema = new Schema({
 });
 
 // Add some method as necessary
-userSchema.methods.login = async function login ({email, password}) {
-    try {
-        const user = await this.model('User').find({ email });
-        const passwordMatch = await bcrypt.compare(password, user.password);
-        
-        if (passwordMatch) {
-            return user;   
-        }
-
-        return false;
-    } catch (error) {
-        throw new Error(error);
-    }
-}
-
-userSchema.methods.signup = async function signup ({firstname, lastname, email, password}) {
-    try {
-        const user = await this.model('User').find({ email });
-        // if user's email already exists
-        if (user) {
-            return {
-                status: false,
-                message: 'User already exists, try to signin.'
-            };
-        }
-
-        const hashedPasswrd = await bcrypt.hash(password, 12);
-
-        this.firstname  = firstname;
-        this.lastname   = lastname;
-        this.email      = email;
-        this.password   = hashedPasswrd;
-        
-        return this.save();
-    } catch (error) {
-        throw new Error(error);
-    }
-}
 
 export default mongoose.model('User', userSchema);
