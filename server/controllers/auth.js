@@ -9,7 +9,7 @@ export default class Auth {
         });
     }
 
-    static async postLogin (req, res, next) {
+    static async postLogin (req, res) {
         const { email, password } = req.body;
 
         try {
@@ -45,12 +45,13 @@ export default class Auth {
                 res.redirect('/auth/login');
             }
         } catch (error) {
+            console.log(error)
             req.flash('error', error);
             res.redirect('/auth/login');
         }
     }
 
-    static logout (req, res) {
+    static logout(req, res) {
         return req.session.destroy(err => {
             if (err) {
                 throw new Error(err);
