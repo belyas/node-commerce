@@ -12,7 +12,6 @@ import HomeRoute, { CategoryRouter, AuthRouter } from './routes/web';
 import { ErroController } from './controllers';
 // Middlewares
 import isAuth from './middlewares/is-auth';
-import Auth from './controllers/auth';
 
 dotenv.config();
 
