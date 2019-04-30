@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+import validator from 'validator';
 import User from '../models/user';
 
 export default class Auth {
@@ -11,6 +12,12 @@ export default class Auth {
 
     static async postLogin (req, res) {
         const { email, password } = req.body;
+        // validate email|password
+        if (!validator.isEmail(email) || validator.isEmpty(email) 
+            || validator.isEmpty(password) || !password.match(/^[a-zA-Z0-9]{4,30}$/)) {
+            req.flash('error', 'Please enter a valid email & password');
+            res.redirect('/auth/login');
+        }
 
         try {
             const user = await User.findOne({ email });
@@ -40,12 +47,10 @@ export default class Auth {
                 req.flash('error', 'Invalid email or password.');
                 res.redirect('/auth/login');
             } catch (error) {
-                console.log('[Bcrypt::compare]', error);
                 req.flash('error', error.message);
                 res.redirect('/auth/login');
             }
         } catch (error) {
-            console.log(error)
             req.flash('error', error);
             res.redirect('/auth/login');
         }
