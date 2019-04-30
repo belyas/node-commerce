@@ -37,12 +37,18 @@ export default class Auth {
                 res.redirect('/auth/login');
             } catch (error) {
                 console.log('[Bcrypt::compare]', error)
-                req.flash('error', error);
+                req.flash('error', error.message);
                 res.redirect('/auth/login');
             }
         } catch (error) {
             req.flash('error', error);
             res.redirect('/auth/login');
         }
+    }
+
+    static logout (req, res) {
+        return req.session.destroy(err => {
+            res.redirect('/');
+        });
     }
 }

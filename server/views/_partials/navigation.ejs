@@ -10,6 +10,7 @@
         <% if (isAuthenticated) {%>
             <a class="nav-item nav-link<%= currentPath === '/categories' ? ' active' : '' %>" href="/categories">Categories</a>
             <a class="nav-item nav-link<%= currentPath === '/products' ? ' active' : '' %>" href="/products">Products</a>
+            <a class="nav-item nav-link pull-right" href="/auth/logout">Logout</a>
         <% } else {%>
             <a class="nav-item nav-link<%= currentPath === '/auth/login' ? ' active' : '' %>" href="/auth/login">Login</a>
         <% } %>
