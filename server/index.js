@@ -59,7 +59,7 @@ app.use((req, res, next) => {
 });
 
 app.use(HomeRoute);
-app.use('/categories', CategoryRouter);
+app.use('/categories', isAuth, CategoryRouter);
 app.use('/products', isAuth, (req, res, next) => {
     next();
 });

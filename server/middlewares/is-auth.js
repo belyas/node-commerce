@@ -1,7 +1,7 @@
 export default (req, res, next) => {
-    // if (true) {
-    //     return res.redirect('/');
-    // }
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
 
     next();
 };
