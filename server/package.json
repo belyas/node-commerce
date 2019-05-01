@@ -25,6 +25,7 @@
     "express": "^4.16.4",
     "express-session": "^1.16.1",
     "mongoose": "^5.5.4",
+    "mongoose-timestamp": "^0.6.0",
     "validator": "^10.11.0"
   },
   "devDependencies": {

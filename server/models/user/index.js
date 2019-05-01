@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import mongooseTimestamp from 'mongoose-timestamp';
 
 const Schema = mongoose.Schema;
 const userSchema = new Schema({
@@ -10,5 +11,8 @@ const userSchema = new Schema({
 });
 
 // Add some method as necessary
+
+// add plugin (add/update date)
+userSchema.plugin(mongooseTimestamp);
 
 export default mongoose.model('User', userSchema);
