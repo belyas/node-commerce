@@ -8,7 +8,12 @@ import csrf from 'csurf';
 import flash from 'connect-flash';
 import connectMongodbSession from 'connect-mongodb-session';
 // Routes
-import HomeRoute, { CategoryRouter, AuthRouter } from './routes/web';
+import HomeRoute,
+{
+    CategoryRouter,
+    AuthRouter,
+    ProfileRouter
+} from './routes/web';
 import { ErroController } from './controllers';
 // Middlewares
 import isAuth from './middlewares/is-auth';
@@ -56,6 +61,7 @@ app.use((req, res, next) => {
 
 app.use(HomeRoute);
 app.use('/auth', AuthRouter);
+app.use('/profile', ProfileRouter);
 app.use('/categories', isAuth, CategoryRouter);
 app.use('/products', isAuth, (req, res, next) => {
     next();
