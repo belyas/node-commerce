@@ -68,7 +68,7 @@ export default class Auth {
 
     static async postSignup (req, res) {
         const { firstname, lastname, email, password } = req.body;
-        const lengthRange = {min: 4, max: 30};
+        const lengthRange = { min: 4, max: 30 };
 
         // validate fields
         if (validator.isEmpty(firstname) || !validator.isAlpha(firstname) ||
@@ -117,12 +117,12 @@ export default class Auth {
                     req.session.isLoggedIn = true;
                     delete savedUser.password;
                     req.session.user = savedUser;
-                    
+
                     return req.session.save(err => {
                         if (err) {
                             throw new Error(err);
                         }
-                        
+
                         res.redirect('/');
                     });
                 }
@@ -130,12 +130,10 @@ export default class Auth {
                 req.flash('error', 'Ooops! could not save your data.');
                 res.redirect(AUTH_ROUTE_SIGNUP);
             } catch (error) {
-                console.log(error, this)
                 req.flash('error', error.message);
                 res.redirect(AUTH_ROUTE_SIGNUP);
             }
         } catch (error) {
-            console.log(error, this)
             req.flash('error', error);
             res.redirect(AUTH_ROUTE_SIGNUP);
         }
