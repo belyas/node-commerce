@@ -49,6 +49,7 @@ app.use((req, res, next) => {
 
     let message = req.flash('error');
     res.locals.errorMessage = message.length ? message[0] : null;
+    res.locals.currentPath = req.baseUrl;
 
     next();
 });
