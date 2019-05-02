@@ -13,8 +13,8 @@ export default class Auth {
     static async postLogin (req, res) {
         const { email, password } = req.body;
         // validate email|password
-        if (!validator.isEmail(email) || validator.isEmpty(email) 
-            || validator.isEmpty(password) || !password.match(/^[a-zA-Z0-9]{4,30}$/)) {
+        if (!validator.isEmail(email) || validator.isEmpty(email) ||
+            validator.isEmpty(password) || !password.match(/^[a-zA-Z0-9]{4,30}$/)) {
             req.flash('error', 'Please enter a valid email & password');
             res.redirect('/auth/login');
         }
@@ -56,7 +56,7 @@ export default class Auth {
         }
     }
 
-    static logout(req, res) {
+    static logout (req, res) {
         return req.session.destroy(err => {
             if (err) {
                 throw new Error(err);
