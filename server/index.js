@@ -8,6 +8,7 @@ import methodOverride from 'method-override';
 import csrf from 'csurf';
 import flash from 'connect-flash';
 import connectMongodbSession from 'connect-mongodb-session';
+import localsMiddleware from './middlewares/locals';
 // Routes
 import HomeRoute,
 {
@@ -59,17 +60,7 @@ app.use(session({
 }));
 app.use(csrfProtection);
 app.use(flash());
-app.use((req, res, next) => {
-    res.locals.isAuthenticated = req.session.isLoggedIn;
-    res.locals.csrfToken = req.csrfToken();
-
-    let errMessage = req.flash('error');
-    res.locals.errorMessage = errMessage.length ? errMessage[0] : null;
-    let successMessage = req.flash('success');
-    res.locals.successMessage = successMessage.length ? successMessage[0] : null;
-
-    next();
-});
+app.use(localsMiddleware);
 
 app.use(HomeRoute);
 app.use('/auth', AuthRouter);
