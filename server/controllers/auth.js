@@ -9,6 +9,7 @@ export default class Auth {
     static login (req, res) {
         res.render('auth/login', {
             title: 'Login',
+            currentPath: req.baseUrl,
             signup: false
         });
     }
@@ -62,6 +63,7 @@ export default class Auth {
     static signup (req, res) {
         res.render('auth/login', {
             title: 'Signup',
+            currentPath: req.baseUrl,
             signup: true
         });
     }

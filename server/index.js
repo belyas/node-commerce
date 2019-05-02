@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import session from 'express-session';
+import methodOverride from 'method-override';
 import csrf from 'csurf';
 import flash from 'connect-flash';
 import connectMongodbSession from 'connect-mongodb-session';
@@ -36,6 +37,16 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(methodOverride(function (req, res, next) {
+    if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+        // look in urlencoded POST bodies and delete it
+        const method = req.body._method;
+        delete req.body._method;
+        return method;
+    }
+
+    next();
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret: process.env.SECRET_KEY,
@@ -52,16 +63,17 @@ app.use((req, res, next) => {
     res.locals.isAuthenticated = req.session.isLoggedIn;
     res.locals.csrfToken = req.csrfToken();
 
-    let message = req.flash('error');
-    res.locals.errorMessage = message.length ? message[0] : null;
-    res.locals.currentPath = req.baseUrl;
+    let errMessage = req.flash('error');
+    res.locals.errorMessage = errMessage.length ? errMessage[0] : null;
+    let successMessage = req.flash('success');
+    res.locals.successMessage = successMessage.length ? successMessage[0] : null;
 
     next();
 });
 
 app.use(HomeRoute);
 app.use('/auth', AuthRouter);
-app.use('/profile', ProfileRouter);
+app.use('/profile', isAuth, ProfileRouter);
 app.use('/categories', isAuth, CategoryRouter);
 app.use('/products', isAuth, (req, res, next) => {
     next();

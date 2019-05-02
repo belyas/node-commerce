@@ -212,7 +212,7 @@ input[type=text]:placeholder, input[type=password]:placeholder {color: #cccccc;}
 }
 .auto-mg {margin: 0 auto;}
 .err-message {color: #ff0000;}
-
+.success-message {color: #5fd21d;}
 
 
 @media (min-width: 1200px) {}

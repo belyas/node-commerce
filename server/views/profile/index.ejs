@@ -8,9 +8,12 @@
         <% if (errorMessage) {%>
             <div class="err-message"><%= errorMessage %></div>
         <% } %>
+        <% if (successMessage) {%>
+            <div class="success-message"><%= successMessage %></div>
+        <% } %>
 
-        <form action="/profile" method="POST" id="signup-form">
-            <input type="hidden" name="_method" value="put" />
+        <form action="/profile" method="POST" id="profile-form">
+            <input type="hidden" name="_method" value="PUT" />
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
             <input type="text" id="firstname" class="fadeIn second" name="firstname" 
                 placeholder="First name" value="<%= currentUser.firstname %>" required />
@@ -19,7 +22,7 @@
             <input type="text" id="email" class="fadeIn third" name="email" 
                 placeholder="Email address" value="<%= currentUser.email %>" required />
             <input type="password" id="password" class="fadeIn third" name="password" 
-                placeholder="Password"  required />
+                placeholder="Password"  />
             <input type="submit" class="fadeIn fourth" value="Update" />
         </form>
     
