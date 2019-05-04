@@ -5,5 +5,6 @@ import { CategoryController } from '../../controllers';
 const router = express.Router();
 
 router.get('/', CategoryController.index);
+router.get('/add', CategoryController.addCategory);
 
 export default router;

@@ -14,7 +14,7 @@ h2 {
     display: inline-block;
 }
 /* STRUCTURE */
-#signinform .wrapper {
+.wrapper {
     display: flex;
     align-items: center;
     flex-direction: column; 
@@ -24,7 +24,7 @@ h2 {
     padding: 20px;
 }
 
-#signinform #formContent {
+.wrapper #formContent {
     -webkit-border-radius: 10px 10px 10px 10px;
     border-radius: 10px 10px 10px 10px;
     background: #fff;
@@ -38,7 +38,7 @@ h2 {
     text-align: center;
 }
 
-#signinform .formFooter {
+.wrapper .formFooter {
     background-color: #f6f6f6;
     border-top: 1px solid #dce8f1;
     padding: 25px;
@@ -214,6 +214,8 @@ input[type=text]:placeholder, input[type=password]:placeholder {color: #cccccc;}
 .err-message {color: #ff0000;}
 .success-message {color: #5fd21d;}
 .err-message, .success-message {text-align: center;margin: 10px;}
+#category-form.wrapper #formContent {max-width: 500px;}
+.file-upload {padding: 0px 45px;}
 
 @media (min-width: 1200px) {}
 

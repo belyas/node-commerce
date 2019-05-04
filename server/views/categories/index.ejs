@@ -1,5 +1,25 @@
 <%- include('../_partials/header.ejs') %>
 <%- include('../_partials/navigation.ejs') %>
-    <h1 class="text-center">Category page</h1>
+    <h1 class="text-center">Category list</h1>
+
+    <a href="/categories/add" class="btn btn-primary mb-1">Add new</a>
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Parent</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% for(let i = 0; i < 3; i++) { %>
+            <tr>
+                <th scope="row"><%= i+1 %></th>
+                <td>Mark</td>
+                <td>Otto</td>
+            </tr>
+            <% } %>
+        </tbody>
+      </table>
     
 <%- include('../_partials/footer.ejs') %>

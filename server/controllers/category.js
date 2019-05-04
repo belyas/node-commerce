@@ -5,4 +5,11 @@ export default class Category {
             currentPath: req.baseUrl
         });
     }
+
+    static addCategory (req, res) {
+        res.render('categories/add', {
+            title: 'Add category',
+            currentPath: req.baseUrl
+        });
+    }
 }
