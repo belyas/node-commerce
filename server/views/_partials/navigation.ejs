@@ -18,3 +18,10 @@
     </div>
     </div>
 </nav>
+
+<% if (errorMessage) {%>
+    <div class="err-message"><%= errorMessage %></div>
+<% } %>
+<% if (successMessage) {%>
+    <div class="success-message"><%= successMessage %></div>
+<% } %>

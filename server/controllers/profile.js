@@ -46,7 +46,6 @@ export default class Profile {
                     const hash = await bcrypt.hash(password, genSalt);
                     userObj.password = hash;
                 } catch (err) {
-                    console.log('[hashCatch]', err)
                     req.flash('error', err.message);
                     res.redirect(PROFILE_ROUTE_MAIM);
                 }
@@ -61,7 +60,7 @@ export default class Profile {
             if (updatedUser) {
                 delete updatedUser.password;
                 req.session.user = updatedUser;
-                
+
                 return req.session.save(err => {
                     if (err) {
                         throw new Error(err);
@@ -75,7 +74,6 @@ export default class Profile {
             req.flash('error', 'No user was found!');
             res.redirect(PROFILE_ROUTE_MAIM);
         } catch (err) {
-            console.log('[firstCatch]', err)
             req.flash('error', err.message);
             res.redirect(PROFILE_ROUTE_MAIM);
         }

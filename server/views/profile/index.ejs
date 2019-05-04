@@ -4,13 +4,6 @@
 <div id="signinform" class="wrapper fadeInDown">
     <div id="formContent" class="auto-mg">
         <h2 class="fadeIn first form-title">My Profile</h2>
-        
-        <% if (errorMessage) {%>
-            <div class="err-message"><%= errorMessage %></div>
-        <% } %>
-        <% if (successMessage) {%>
-            <div class="success-message"><%= successMessage %></div>
-        <% } %>
 
         <form action="/profile" method="POST" id="profile-form">
             <input type="hidden" name="_method" value="PUT" />

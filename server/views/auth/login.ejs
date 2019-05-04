@@ -4,10 +4,7 @@
 <div id="signinform" class="wrapper fadeInDown">
     <div id="formContent" class="auto-mg">
         <h2 class="fadeIn first form-title">Node Commerce</h2>
-        
-        <% if (errorMessage) {%>
-            <div class="err-message"><%= errorMessage %></div>
-        <% } %>
+
         <form action="/auth/login" method="POST" id="login-form" style="<%= signup ? 'display:none;' : '' %>">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
             <input type="text" id="lemail" class="fadeIn second" name="email" placeholder="Email address" required />
