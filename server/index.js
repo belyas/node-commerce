@@ -8,7 +8,8 @@ import methodOverride from 'method-override';
 import csrf from 'csurf';
 import flash from 'connect-flash';
 import connectMongodbSession from 'connect-mongodb-session';
-import localsMiddleware from './middlewares/locals';
+// Middlewares
+import { LocalsMiddleware, UploadMiddleare, IsAuthMiddleware } from './middlewares';
 // Routes
 import HomeRoute,
 {
@@ -17,8 +18,6 @@ import HomeRoute,
     ProfileRouter
 } from './routes/web';
 import { ErroController } from './controllers';
-// Middlewares
-import isAuth from './middlewares/is-auth';
 
 dotenv.config();
 
@@ -60,13 +59,13 @@ app.use(session({
 }));
 app.use(csrfProtection);
 app.use(flash());
-app.use(localsMiddleware);
+app.use(LocalsMiddleware);
 
 app.use(HomeRoute);
 app.use('/auth', AuthRouter);
-app.use('/profile', isAuth, ProfileRouter);
-app.use('/categories', isAuth, CategoryRouter);
-app.use('/products', isAuth, (req, res, next) => {
+app.use('/profile', IsAuthMiddleware, ProfileRouter);
+app.use('/categories', IsAuthMiddleware, UploadMiddleare.single('category_image'), CategoryRouter);
+app.use('/products', IsAuthMiddleware, (req, res, next) => {
     next();
 });
 
