@@ -1,6 +1,8 @@
 export default (req, res, next) => {
     res.locals.isAuthenticated = req.session.isLoggedIn;
-    res.locals.csrfToken = req.csrfToken();
+    const _token = req.csrfToken();
+    res.locals.csrfToken = _token;
+    res.cookie('CSRF-TOKEN', _token);
 
     let errMessage = req.flash('error');
     res.locals.errorMessage = errMessage.length ? errMessage[0] : null;

@@ -35,9 +35,9 @@ const port = process.env.PORT || 8000;
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(methodOverride(function (req, res, next) {
+app.use(methodOverride((req, res, next) => {
     if (req.body && typeof req.body === 'object' && '_method' in req.body) {
         // look in urlencoded POST bodies and delete it
         const method = req.body._method;
@@ -45,7 +45,7 @@ app.use(methodOverride(function (req, res, next) {
         return method;
     }
 
-    next();
+    // next();
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
@@ -64,7 +64,7 @@ app.use(LocalsMiddleware);
 app.use(HomeRoute);
 app.use('/auth', AuthRouter);
 app.use('/profile', IsAuthMiddleware, ProfileRouter);
-app.use('/categories', IsAuthMiddleware, UploadMiddleare.single('category_image'), CategoryRouter);
+app.use('/categories', IsAuthMiddleware, UploadMiddleare('categories').single('category_image'), CategoryRouter);
 app.use('/products', IsAuthMiddleware, (req, res, next) => {
     next();
 });

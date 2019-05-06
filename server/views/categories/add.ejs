@@ -1,10 +1,12 @@
 <%- include('../_partials/header.ejs') %>
 <%- include('../_partials/navigation.ejs') %>
+
 <h1 class="text-center">Add category</h1>
 
 <div id="category-form" class="wrapper fadeInDown">
     <div id="formContent" class="auto-mg">
-        <form action="/category/add" method="POST" id="add-category-form" enctype="multipart/form-data">
+        <form action="/categories/add?_csrf=<%= csrfToken %>" method="POST" id="add-category-form" 
+            enctype="multipart/form-data">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
             <div class="form-group mb-3 mt-3">
                 <input type="text" class="form-control" id="category-name"  name="name" placeholder="Name">

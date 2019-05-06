@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import validator from 'validator';
-import User from '../models/user';
+import UserModel from '../models/user';
 
 const AUTH_ROUTE_LOGIN = '/auth/login';
 const AUTH_ROUTE_SIGNUP = '/auth/signup';
@@ -24,7 +24,7 @@ export default class Auth {
         }
 
         try {
-            const user = await User.findOne({ email });
+            const user = await UserModel.findOne({ email });
 
             if (!user) {
                 req.flash('error', 'Invalid email or password.');
@@ -96,7 +96,7 @@ export default class Auth {
         }
 
         try {
-            const user = await User.findOne({ email });
+            const user = await UserModel.findOne({ email });
 
             if (user) {
                 req.flash('error', 'Invalid email.');
@@ -106,7 +106,7 @@ export default class Auth {
             try {
                 const genSalt = await bcrypt.genSalt(10);
                 const hash = await bcrypt.hash(password, genSalt);
-                const userObj = new User({
+                const userObj = new UserModel({
                     firstname,
                     lastname,
                     email,

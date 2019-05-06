@@ -1,13 +1,16 @@
+import path from 'path';
 import multer from 'multer';
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'images');
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.toIsoString() + '-' + file.originalname);
-    }
-});
+const storage = (distName) => {
+    return multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, path.join(__dirname, `../public/images/${distName}`));
+        },
+        filename: (req, file, cb) => {
+            cb(null, Date.now() + '-' + file.originalname);
+        }
+    });
+};
 
 const fileFilter = (req, file, cb) => {
     if (
@@ -21,7 +24,7 @@ const fileFilter = (req, file, cb) => {
     }
 };
 
-const uplaod = multer({ storage, fileFilter });
+const uplaod = distName => multer({ storage: storage(distName), fileFilter });
 
 export default uplaod;
 export { fileFilter };

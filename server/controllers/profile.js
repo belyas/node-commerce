@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import validator from 'validator';
-import User from '../models/user';
+import UserModel from '../models/user';
 
 const PROFILE_ROUTE_MAIM = '/profile';
 const PASSWORD_MIN_VALUE = 4;
@@ -37,7 +37,7 @@ export default class Profile {
         }
 
         try {
-            const userObj = await User.findOne({ _id: req.session.user._id });
+            const userObj = await UserModel.findOne({ _id: req.session.user._id });
 
             // update password only if provided
             if (password.length > PASSWORD_MIN_VALUE) {
