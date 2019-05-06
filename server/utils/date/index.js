@@ -1,4 +1,8 @@
 const formatStringDate = date => {
+    if (!date) {
+        return false;
+    }
+
     const initDate = new Date(date);
 
     if (!initDate) {
@@ -6,9 +10,10 @@ const formatStringDate = date => {
     }
 
     let getDate = initDate.getDate();
-    getDate = getDate > 0 ? getDate : '0' + getDate;
-    const getMonth = initDate.getMonth();
+    let getMonth = initDate.getMonth();
     const getYear = initDate.getFullYear();
+    getDate = getDate > 10 ? getDate : '0' + getDate;
+    getMonth = getMonth > 10 ? getMonth : '0' + getMonth;
 
     return getDate + '/' + getMonth + '/' + getYear;
 };

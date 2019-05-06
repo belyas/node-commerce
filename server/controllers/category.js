@@ -5,10 +5,12 @@ const CATEGORY_ROUTE_INDEX = CATEGORY_ROUTE_MAIN + '/index';
 const CATEGORY_ROUTE_ADD = CATEGORY_ROUTE_MAIN + '/add';
 
 export default class Category {
-    static index (req, res) {
+    static async index (req, res) {
+        const categories = await CategoryModel.find({});
         res.render(CATEGORY_ROUTE_INDEX, {
             title: 'Categories',
-            currentPath: req.baseUrl
+            currentPath: req.baseUrl,
+            categories
         });
     }
 

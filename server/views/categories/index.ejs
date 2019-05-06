@@ -8,15 +8,25 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
-            <th scope="col">Parent</th>
+            <th scope="col">Created</th>
+            <th scope="col">Updated</th>
           </tr>
         </thead>
         <tbody>
-            <% for(let i = 0; i < 3; i++) { %>
+            <%
+              if (categories.length) {
+                let i = 1;
+                for (let category of categories) {
+            %>
             <tr>
-                <th scope="row"><%= i+1 %></th>
-                <td>Mark</td>
-                <td>Otto</td>
+                <th scope="row"><%= i %></th>
+                <td><%= category.name %></td>
+                <td><%= formatStringDate(category.createdAt) %></td>
+                <td><%= formatStringDate(category.updatedAt) %></td>
+            </tr>
+            <% i++; } } else { %>
+            <tr>
+              <td colspan="4" class="text-center">No category found!</td>
             </tr>
             <% } %>
         </tbody>
