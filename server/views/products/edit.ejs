@@ -1,7 +1,7 @@
 <%- include('../_partials/header.ejs') %>
 <%- include('../_partials/navigation.ejs') %>
 
-<h1 class="text-center">Edit product: <%= capitalize(product.name) %></h1>
+<h1 class="text-center">Edit product: <%= capitalize(decodeStr(product.name)) %></h1>
 
 <div id="product-form" class="wrapper fadeInDown">
     <div id="formContent" class="auto-mg">
@@ -10,7 +10,7 @@
             <input type="hidden" name="id" value="<%= product._id %>" />
             <div class="form-group mb-3 mt-3">
                 <input type="text" class="form-control" id="product-name" name="name" 
-                    placeholder="Name" maxlength="100" value="<%= product.name %>" />
+                    placeholder="Name" maxlength="100" value="<%= decodeStr(product.name) %>" />
             </div>
             <div class="form-group mb-3 mt-3">
                 <input type="number" class="form-control" id="product-price" name="price" 

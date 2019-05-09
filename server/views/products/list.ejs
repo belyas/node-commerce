@@ -23,7 +23,7 @@
             %>
             <tr>
                 <th scope="row"><%= i %></th>
-                <td><%= capitalize(product.name) %></td>
+                <td><%= capitalize(decodeStr(product.name)) %></td>
                 <td><%= product.price %></td>
                 <td><%= product.quantity %></td>
                 <td><%= formatStringDate(product.createdAt) %></td>
