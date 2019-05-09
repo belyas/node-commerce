@@ -6,12 +6,18 @@ const CATEGORY_ROUTE_ADD = CATEGORY_ROUTE_MAIN + '/add';
 
 export default class Category {
     static async index (req, res) {
-        const categories = await CategoryModel.find({});
-        res.render(CATEGORY_ROUTE_INDEX, {
-            title: 'Categories',
-            currentPath: req.baseUrl,
-            categories
-        });
+        try {
+            const categories = await CategoryModel.find({}).sort([['createdAt', -1]]);
+
+            res.render(CATEGORY_ROUTE_INDEX, {
+                title: 'Categories',
+                currentPath: req.baseUrl,
+                categories
+            });
+        } catch (err) {
+            req.flash('error', err);
+            return res.redirect('/');
+        }
     }
 
     static addCategory (req, res) {
@@ -51,13 +57,13 @@ export default class Category {
 
             if (savedCategory) {
                 req.flash('success', 'Category has been successfully added.');
-                return res.redirect('/');
+                return res.redirect('/' + CATEGORY_ROUTE_MAIN);
             }
 
             req.flash('error', 'Category could not be added!');
             res.redirect(CATEGORY_ROUTE_ADD);
         } catch (error) {
-            req.flash('error', error.message);
+            req.flash('error', error);
             res.redirect(CATEGORY_ROUTE_ADD);
         }
     }
