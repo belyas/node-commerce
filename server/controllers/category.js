@@ -1,7 +1,9 @@
 import fs from 'fs';
 import path from 'path';
+import validator from 'validator';
 import CategoryModel from '../models/category';
 import { ltrim } from '../utils/string';
+import { EEXIST } from 'constants';
 
 const CATEGORY_ROUTE_MAIN = 'categories';
 const CATEGORY_ROUTE_MAIN_URL = '/' + CATEGORY_ROUTE_MAIN;
@@ -42,7 +44,7 @@ export default class Category {
             hasError = true;
         }
 
-        if (!name.trim()) {
+        if (validator.isEmpty(name)) {
             req.flash('error', 'Category name is mandatory.');
             hasError = true;
         }
@@ -53,9 +55,10 @@ export default class Category {
         }
 
         try {
+            let sanitizedName = validator.escape(name.trim().toLowerCase());
             const categoryObj = new CategoryModel({
-                name: name.trim().toLowerCase(),
-                image: image.filename
+                name: sanitizedName,
+                image: validator.escape(image.filename)
             });
 
             const savedCategory = await categoryObj.save();
@@ -99,25 +102,26 @@ export default class Category {
             return res.redirect(CATEGORY_ROUTE_MAIN_URL);
         }
 
-        if (!name.trim()) {
+        if (validator.isEmpty(name)) {
             req.flash('error', 'Category name is mandatory.');
             return res.redirect(CATEGORY_ROUTE_EDIT + '/' + id);
         }
 
         try {
             const category = await CategoryModel.findById(id);
-            const updatedCategory = { name: name.trim().toLowerCase() };
+            let sanitizedName = validator.escape(name.trim().toLowerCase());
+            const updatedCategory = { name: sanitizedName };
             const oldImage = category.image;
             let hasImage = false;
 
             if (image) {
-                updatedCategory.image = image.filename;
+                updatedCategory.image = validator.escape(image.filename);
                 hasImage = true;
             }
 
-            const updateCategory = await CategoryModel.updateOne({ _id: id }, { $set: updatedCategory });
+            const categoryUpdated = await CategoryModel.updateOne({ _id: id }, { $set: updatedCategory });
 
-            if (updateCategory.n) {
+            if (categoryUpdated.n) {
                 // check if the image has been uploaded, then remove the old one
                 if (hasImage) {
                     fs.unlinkSync(path.join(__dirname, '../public/images/categories/') + oldImage);
@@ -130,7 +134,8 @@ export default class Category {
             req.flash('error', 'Category has not been updated.');
             return res.redirect(CATEGORY_ROUTE_MAIN_URL);
         } catch (err) {
-            req.flash('error', err);
+            console.log('[Myerr]', typeof err === Error ? err.message : err)
+            req.flash('error', typeof err === Error ? err.message : err);
             res.redirect(CATEGORY_ROUTE_EDIT + '/' + id);
         }
     }
@@ -144,6 +149,7 @@ export default class Category {
         }
 
         try {
+            id = validator.escape(id);
             await CategoryModel.findByIdAndDelete(id);
 
             req.flash('success', 'Category has been successfully deleted.');
