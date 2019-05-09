@@ -35,18 +35,9 @@ const port = process.env.PORT || 8000;
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(methodOverride((req, res, next) => {
-    if (req.body && typeof req.body === 'object' && '_method' in req.body) {
-        // look in urlencoded POST bodies and delete it
-        const method = req.body._method;
-        delete req.body._method;
-        return method;
-    }
-
-    // next();
-}));
+app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret: process.env.SECRET_KEY,
