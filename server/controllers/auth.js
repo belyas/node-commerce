@@ -44,18 +44,19 @@ export default class Auth {
                             throw new Error(err);
                         }
 
+                        req.flash('success', 'You have been successfully logged in.');
                         res.redirect('/');
                     });
                 }
 
                 req.flash('error', 'Invalid email or password.');
                 res.redirect(AUTH_ROUTE_LOGIN);
-            } catch (error) {
-                req.flash('error', error.message);
+            } catch (err) {
+                req.flash('error', err);
                 res.redirect(AUTH_ROUTE_LOGIN);
             }
-        } catch (error) {
-            req.flash('error', error);
+        } catch (err) {
+            req.flash('error', err);
             res.redirect(AUTH_ROUTE_LOGIN);
         }
     }
@@ -131,12 +132,12 @@ export default class Auth {
 
                 req.flash('error', 'Ooops! could not save your data.');
                 res.redirect(AUTH_ROUTE_SIGNUP);
-            } catch (error) {
-                req.flash('error', error.message);
+            } catch (err) {
+                req.flash('error', err);
                 res.redirect(AUTH_ROUTE_SIGNUP);
             }
-        } catch (error) {
-            req.flash('error', error);
+        } catch (err) {
+            req.flash('error', err);
             res.redirect(AUTH_ROUTE_SIGNUP);
         }
     }

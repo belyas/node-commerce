@@ -134,4 +134,23 @@ export default class Category {
             res.redirect(CATEGORY_ROUTE_EDIT + '/' + id);
         }
     }
+
+    static async delete (req, res) {
+        const { id } = req.body;
+
+        if (!id) {
+            req.flash('error', 'Category not found!');
+            res.redirect(CATEGORY_ROUTE_MAIN_URL);
+        }
+
+        try {
+            await CategoryModel.findByIdAndDelete(id);
+
+            req.flash('success', 'Category has been successfully deleted.');
+            res.redirect(CATEGORY_ROUTE_MAIN_URL);
+        } catch (err) {
+            req.flash('error', err);
+            res.redirect(CATEGORY_ROUTE_MAIN_URL);
+        }
+    }
 }

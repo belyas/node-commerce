@@ -28,6 +28,14 @@
                   <a href="/categories/edit/<%= category._id %>">
                       <i class="fas fa-edit"></i>
                   </a>
+                  <a href="#" class="removeElement" data-form-id="<%= category._id %>">
+                    <i class="fas fa-trash"></i>
+                  </a>
+                  <form action="/categories/delete?_method=DELETE" method="post"
+                    id="remove-form-<%= category._id %>">
+                    <input type="hidden" name="id" value="<%= category._id %>" />
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                  </form>
                 </td>
             </tr>
             <% i++; } } else { %>
