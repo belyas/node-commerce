@@ -1,18 +1,20 @@
 import fs from 'fs';
 import path from 'path';
 import CategoryModel from '../models/category';
+import { ltrim } from '../utils/string';
 
 const CATEGORY_ROUTE_MAIN = 'categories';
-const CATEGORY_ROUTE_INDEX = CATEGORY_ROUTE_MAIN + '/list';
-const CATEGORY_ROUTE_ADD = CATEGORY_ROUTE_MAIN + '/add';
-const CATEGORY_ROUTE_EDIT = CATEGORY_ROUTE_MAIN + '/edit';
+const CATEGORY_ROUTE_MAIN_URL = '/' + CATEGORY_ROUTE_MAIN;
+const CATEGORY_ROUTE_LIST = CATEGORY_ROUTE_MAIN_URL + '/list';
+const CATEGORY_ROUTE_ADD = CATEGORY_ROUTE_MAIN_URL + '/add';
+const CATEGORY_ROUTE_EDIT = CATEGORY_ROUTE_MAIN_URL + '/edit';
 
 export default class Category {
     static async list (req, res) {
         try {
             const categories = await CategoryModel.find({}).sort([['createdAt', -1]]);
 
-            res.render(CATEGORY_ROUTE_INDEX, {
+            res.render(ltrim(CATEGORY_ROUTE_LIST), {
                 title: 'Categories',
                 currentPath: req.baseUrl,
                 categories
@@ -24,7 +26,7 @@ export default class Category {
     }
 
     static add (req, res) {
-        res.render(CATEGORY_ROUTE_ADD, {
+        res.render(ltrim(CATEGORY_ROUTE_ADD), {
             title: 'Add category',
             currentPath: req.baseUrl
         });
@@ -60,13 +62,13 @@ export default class Category {
 
             if (savedCategory) {
                 req.flash('success', 'Category has been successfully added.');
-                return res.redirect('/' + CATEGORY_ROUTE_MAIN);
+                return res.redirect(CATEGORY_ROUTE_MAIN_URL);
             }
 
             req.flash('error', 'Category could not be added!');
             res.redirect(CATEGORY_ROUTE_ADD);
-        } catch (error) {
-            req.flash('error', error);
+        } catch (err) {
+            req.flash('error', err);
             res.redirect(CATEGORY_ROUTE_ADD);
         }
     }
@@ -77,14 +79,14 @@ export default class Category {
         try {
             const category = await CategoryModel.findById(categoryId);
 
-            res.render(CATEGORY_ROUTE_EDIT, {
+            res.render(ltrim(CATEGORY_ROUTE_EDIT), {
                 title: 'Edit category',
                 currentPath: req.baseUrl,
                 category
             });
-        } catch (error) {
-            req.flash('error', error);
-            res.redirect('/' + CATEGORY_ROUTE_MAIN);
+        } catch (err) {
+            req.flash('error', err);
+            res.redirect(CATEGORY_ROUTE_MAIN_URL);
         }
     }
 
@@ -94,7 +96,7 @@ export default class Category {
 
         if (!id) {
             req.flash('error', 'Category was not found.');
-            return res.redirect('/' + CATEGORY_ROUTE_MAIN);
+            return res.redirect(CATEGORY_ROUTE_MAIN_URL);
         }
 
         if (!name.trim()) {
@@ -122,14 +124,14 @@ export default class Category {
                 }
 
                 req.flash('success', 'Category has been successfully updated.');
-                return res.redirect('/' + CATEGORY_ROUTE_MAIN);
+                return res.redirect(CATEGORY_ROUTE_MAIN_URL);
             }
 
             req.flash('error', 'Category has not been updated.');
-            return res.redirect('/' + CATEGORY_ROUTE_MAIN);
-        } catch (error) {
-            req.flash('error', error);
-            res.redirect('/' + CATEGORY_ROUTE_EDIT + '/' + id);
+            return res.redirect(CATEGORY_ROUTE_MAIN_URL);
+        } catch (err) {
+            req.flash('error', err);
+            res.redirect(CATEGORY_ROUTE_EDIT + '/' + id);
         }
     }
 }
