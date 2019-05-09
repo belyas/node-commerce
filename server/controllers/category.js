@@ -108,7 +108,8 @@ export default class Category {
         }
 
         try {
-            const category = await CategoryModel.findById(id);
+            let sanitizedId = validator.escape(id);
+            const category = await CategoryModel.findById(sanitizedId);
             let sanitizedName = validator.escape(name.trim().toLowerCase());
             const updatedCategory = { name: sanitizedName };
             const oldImage = category.image;
