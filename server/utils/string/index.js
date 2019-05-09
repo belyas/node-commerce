@@ -1,5 +1,7 @@
 const ltrim = (str, op = '/') => {
-    return str.substring(str.indexOf(op) + 1);
+    const pattern = op ? new RegExp(`^[${op}]+`, 'g') : /^\s+/g;
+
+    return str.replace(pattern, '');
 };
 
 export {
