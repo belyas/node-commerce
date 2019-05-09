@@ -4,6 +4,6 @@ const ltrim = (str, op = '/') => {
     return str.replace(pattern, '');
 };
 
-export {
-    ltrim
-};
+const capitalize = str => str.substr(0, 1).toUpperCase() + str.substr(1);
+
+export { ltrim, capitalize };
