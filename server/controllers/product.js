@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import validator from 'validator';
 import ProductModel from '../models/product';
+import CategoryModel from '../models/category';
 import { ltrim } from '../utils/string';
 
 const PRODUCT_ROUTE_MAIN = 'products';
@@ -26,15 +27,18 @@ export default class Product {
         }
     }
 
-    static add (req, res) {
+    static async add (req, res) {
+        const categories = await CategoryModel.find({}).sort([['createdAt', -1]]);
+
         res.render(ltrim(PRODUCT_ROUTE_ADD), {
             title: 'Add a product',
-            currentPath: req.baseUrl
+            currentPath: req.baseUrl,
+            categories
         });
     }
 
     static async store (req, res) {
-        const { name, descritpion, price, quantity } = req.body;
+        const { name, description, price, quantity, category } = req.body;
         const image = req.file;
         let hasError = false;
 
@@ -43,12 +47,17 @@ export default class Product {
             hasError = true;
         }
 
-        if (validator.isEmpty(name)) {
+        if (validator.isEmpty(name) || !name) {
             req.flash('error', 'Product\'s name is mandatory.');
             hasError = true;
         }
 
-        if (validator.isEmpty(descritpion)) {
+        if (!validator.isMongoId(category) || !category) {
+            req.flash('error', 'Category is not valid.');
+            hasError = true;
+        }
+
+        if (validator.isEmpty(description) || !description) {
             req.flash('error', 'Product\'s description is mandatory.');
             hasError = true;
         }
@@ -71,23 +80,29 @@ export default class Product {
         try {
             const productObj = new ProductModel({
                 name: validator.escape(name.trim().toLowerCase()),
-                descritpion: validator.escape(descritpion.trim().toLowerCase()),
+                description: validator.escape(description.trim().toLowerCase()),
                 price: price,
                 quantity: +quantity,
-                image: validator.escape(image.filename)
+                image: validator.escape(image.filename),
+                category
             });
 
             const savedProduct = await productObj.save();
 
             if (savedProduct) {
                 req.flash('success', 'Product has been successfully added.');
-                return res.redirect(CATEGORY_ROUTE_MAIN);
+                return res.redirect(PRODUCT_ROUTE_MAIN_URL);
             }
 
             req.flash('error', 'Product could not be added!');
             res.redirect(PRODUCT_ROUTE_ADD);
         } catch (err) {
-            req.flash('error', err);
+            // remove any failed product'image
+            if (image) {
+                fs.unlinkSync(path.join(__dirname, '../public/images/products/') + image.filename);
+            }
+
+            req.flash('error', typeof err === Error ? err.message : err);
             res.redirect(PRODUCT_ROUTE_ADD);
         }
     }
@@ -110,7 +125,7 @@ export default class Product {
     }
 
     static async update (req, res) {
-        const { id, name, descritpion, price, quantity } = req.body;
+        const { id, name, description, price, quantity } = req.body;
         const image = req.file;
         let hasError = false;
 
@@ -119,12 +134,12 @@ export default class Product {
             return res.redirect(PRODUCT_ROUTE_MAIN_URL);
         }
 
-        if (validator.isEmpty(name)) {
+        if (validator.isEmpty(name) || !name) {
             req.flash('error', 'Category name is mandatory.');
             hasError = true;
         }
 
-        if (validator.isEmpty(descritpion)) {
+        if (validator.isEmpty(description) || !description) {
             req.flash('error', 'Product\'s description is mandatory.');
             hasError = true;
         }
@@ -176,6 +191,11 @@ export default class Product {
             req.flash('error', 'Product has not been updated.');
             res.redirect(PRODUCT_ROUTE_MAIN_URL);
         } catch (err) {
+            // remove any failed product'image
+            if (image) {
+                fs.unlinkSync(path.join(__dirname, '../public/images/products/') + image.filename);
+            }
+
             req.flash('error', err);
             res.redirect(PRODUCT_ROUTE_EDIT + '/' + id);
         }

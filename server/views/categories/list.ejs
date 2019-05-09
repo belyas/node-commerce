@@ -2,7 +2,7 @@
 <%- include('../_partials/navigation.ejs') %>
     <h1 class="text-center">Category list</h1>
 
-    <a href="/categories/add" class="btn btn-primary mb-1">Add new</a>
+    <a href="/categories/add" class="btn btn-primary mb-1 float-right">Add new</a>
     <table class="table">
         <thead class="thead-dark">
           <tr>
@@ -40,7 +40,7 @@
             </tr>
             <% i++; } } else { %>
             <tr>
-              <td colspan="4" class="text-center">No category found!</td>
+              <td colspan="5" class="text-center">No category found!</td>
             </tr>
             <% } %>
         </tbody>
