@@ -5,7 +5,7 @@
 
 <div id="category-form" class="wrapper fadeInDown">
     <div id="formContent" class="auto-mg">
-        <form action="/categories/add?_csrf=<%= csrfToken %>" method="POST" id="add-category-form" 
+        <form action="/categories/store?_csrf=<%= csrfToken %>" method="POST" id="add-category-form" 
             enctype="multipart/form-data">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
             <div class="form-group mb-3 mt-3">

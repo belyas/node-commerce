@@ -3,12 +3,12 @@ import path from 'path';
 import CategoryModel from '../models/category';
 
 const CATEGORY_ROUTE_MAIN = 'categories';
-const CATEGORY_ROUTE_INDEX = CATEGORY_ROUTE_MAIN + '/index';
+const CATEGORY_ROUTE_INDEX = CATEGORY_ROUTE_MAIN + '/list';
 const CATEGORY_ROUTE_ADD = CATEGORY_ROUTE_MAIN + '/add';
 const CATEGORY_ROUTE_EDIT = CATEGORY_ROUTE_MAIN + '/edit';
 
 export default class Category {
-    static async index (req, res) {
+    static async list (req, res) {
         try {
             const categories = await CategoryModel.find({}).sort([['createdAt', -1]]);
 
@@ -23,14 +23,14 @@ export default class Category {
         }
     }
 
-    static addCategory (req, res) {
+    static add (req, res) {
         res.render(CATEGORY_ROUTE_ADD, {
             title: 'Add category',
             currentPath: req.baseUrl
         });
     }
 
-    static async postCategory (req, res) {
+    static async store (req, res) {
         const { name } = req.body;
         const image = req.file;
         let hasError = false;
@@ -71,7 +71,7 @@ export default class Category {
         }
     }
     
-    static async editCategory (req, res) {
+    static async edit (req, res) {
         const categoryId = req.params.id;
 
         try {
@@ -88,7 +88,7 @@ export default class Category {
         }
     }
 
-    static async updateCategory (req, res) {
+    static async update (req, res) {
         const { id, name } = req.body;
         const image = req.file;
 
