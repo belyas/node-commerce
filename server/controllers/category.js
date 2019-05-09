@@ -150,8 +150,13 @@ export default class Category {
         }
 
         try {
-            id = validator.escape(id);
-            await CategoryModel.findByIdAndDelete(id);
+            let sanitizedId = validator.escape(id);
+            const deletedCategory = await CategoryModel.findByIdAndDelete(sanitizedId);
+
+            // remove attached image
+            if (deletedCategory) {
+                fs.unlinkSync(path.join(__dirname, '../public/images/categories/') + deletedCategory.image);
+            }
 
             req.flash('success', 'Category has been successfully deleted.');
             res.redirect(CATEGORY_ROUTE_MAIN_URL);
