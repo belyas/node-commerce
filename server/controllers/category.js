@@ -43,7 +43,7 @@ export default class Category {
         }
 
         if (!name.trim()) {
-            req.flash('error', 'Category name is mandary.');
+            req.flash('error', 'Category name is mandatory.');
             hasError = true;
         }
 
@@ -100,7 +100,7 @@ export default class Category {
         }
 
         if (!name.trim()) {
-            req.flash('error', 'Category name is mandary.');
+            req.flash('error', 'Category name is mandatory.');
             return res.redirect(CATEGORY_ROUTE_EDIT + '/' + id);
         }
 
