@@ -70,7 +70,7 @@ export default class Category {
             res.redirect(CATEGORY_ROUTE_ADD);
         }
     }
-    
+
     static async edit (req, res) {
         const categoryId = req.params.id;
 
@@ -99,7 +99,7 @@ export default class Category {
 
         if (!name.trim()) {
             req.flash('error', 'Category name is mandary.');
-            return res.redirect(CATEGORY_ROUTE_EDIT + '/'+ id);
+            return res.redirect(CATEGORY_ROUTE_EDIT + '/' + id);
         }
 
         try {
@@ -129,7 +129,7 @@ export default class Category {
             return res.redirect('/' + CATEGORY_ROUTE_MAIN);
         } catch (error) {
             req.flash('error', error);
-            res.redirect('/' + CATEGORY_ROUTE_EDIT + '/'+ id);
+            res.redirect('/' + CATEGORY_ROUTE_EDIT + '/' + id);
         }
     }
 }
