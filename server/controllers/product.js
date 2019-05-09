@@ -112,11 +112,13 @@ export default class Product {
 
         try {
             const product = await ProductModel.findById(productId);
+            const categories = await CategoryModel.find({}).sort([['createdAt', -1]]);
 
             res.render(ltrim(PRODUCT_ROUTE_EDIT), {
                 title: 'Edit product',
                 currentPath: req.baseUrl,
-                product
+                product,
+                categories
             });
         } catch (err) {
             req.flash('error', err);
@@ -125,7 +127,7 @@ export default class Product {
     }
 
     static async update (req, res) {
-        const { id, name, description, price, quantity } = req.body;
+        const { id, name, description, price, quantity, category } = req.body;
         const image = req.file;
         let hasError = false;
 
@@ -141,6 +143,11 @@ export default class Product {
 
         if (validator.isEmpty(description) || !description) {
             req.flash('error', 'Product\'s description is mandatory.');
+            hasError = true;
+        }
+
+        if (!validator.isMongoId(category) || !category) {
+            req.flash('error', 'Category is not valid.');
             hasError = true;
         }
 
@@ -166,7 +173,8 @@ export default class Product {
                 name: validator.escape(name.trim().toLowerCase()),
                 description: validator.escape(description.trim().toLowerCase()),
                 price: price,
-                quantity: +quantity
+                quantity: +quantity,
+                category
             };
             const oldImage = product.image;
             let hasImage = false;
