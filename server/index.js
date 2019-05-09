@@ -9,13 +9,14 @@ import csrf from 'csurf';
 import flash from 'connect-flash';
 import connectMongodbSession from 'connect-mongodb-session';
 // Middlewares
-import { LocalsMiddleware, UploadMiddleare, IsAuthMiddleware } from './middlewares';
+import { LocalsMiddleware, UploadMiddleware, IsAuthMiddleware } from './middlewares';
 // Routes
 import HomeRoute,
 {
     CategoryRouter,
     AuthRouter,
-    ProfileRouter
+    ProfileRouter,
+    ProductRouter
 } from './routes/web';
 import { ErroController } from './controllers';
 
@@ -55,10 +56,8 @@ app.use(LocalsMiddleware);
 app.use(HomeRoute);
 app.use('/auth', AuthRouter);
 app.use('/profile', IsAuthMiddleware, ProfileRouter);
-app.use('/categories', IsAuthMiddleware, UploadMiddleare('categories').single('category_image'), CategoryRouter);
-app.use('/products', IsAuthMiddleware, (req, res, next) => {
-    next();
-});
+app.use('/categories', IsAuthMiddleware, UploadMiddleware('categories').single('category_image'), CategoryRouter);
+app.use('/products', IsAuthMiddleware, UploadMiddleware('products').single('product_image'), ProductRouter);
 
 app.use(ErroController.err404);
 // connect to db then launch the server
