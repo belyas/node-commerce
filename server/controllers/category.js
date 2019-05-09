@@ -1,8 +1,11 @@
+import fs from 'fs';
+import path from 'path';
 import CategoryModel from '../models/category';
 
 const CATEGORY_ROUTE_MAIN = 'categories';
 const CATEGORY_ROUTE_INDEX = CATEGORY_ROUTE_MAIN + '/index';
 const CATEGORY_ROUTE_ADD = CATEGORY_ROUTE_MAIN + '/add';
+const CATEGORY_ROUTE_EDIT = CATEGORY_ROUTE_MAIN + '/edit';
 
 export default class Category {
     static async index (req, res) {
@@ -65,6 +68,68 @@ export default class Category {
         } catch (error) {
             req.flash('error', error);
             res.redirect(CATEGORY_ROUTE_ADD);
+        }
+    }
+    
+    static async editCategory (req, res) {
+        const categoryId = req.params.id;
+
+        try {
+            const category = await CategoryModel.findById(categoryId);
+
+            res.render(CATEGORY_ROUTE_EDIT, {
+                title: 'Edit category',
+                currentPath: req.baseUrl,
+                category
+            });
+        } catch (error) {
+            req.flash('error', error);
+            res.redirect('/' + CATEGORY_ROUTE_MAIN);
+        }
+    }
+
+    static async updateCategory (req, res) {
+        const { id, name } = req.body;
+        const image = req.file;
+
+        if (!id) {
+            req.flash('error', 'Category was not found.');
+            return res.redirect('/' + CATEGORY_ROUTE_MAIN);
+        }
+
+        if (!name.trim()) {
+            req.flash('error', 'Category name is mandary.');
+            return res.redirect(CATEGORY_ROUTE_EDIT + '/'+ id);
+        }
+
+        try {
+            const category = await CategoryModel.findById(id);
+            const updatedCategory = { name: name.trim().toLowerCase() };
+            const oldImage = category.image;
+            let hasImage = false;
+
+            if (image) {
+                updatedCategory.image = image.filename;
+                hasImage = true;
+            }
+
+            const updateCategory = await CategoryModel.updateOne({ _id: id }, { $set: updatedCategory });
+
+            if (updateCategory.n) {
+                // check if the image has been uploaded, then remove the old one
+                if (hasImage) {
+                    fs.unlinkSync(path.join(__dirname, '../public/images/categories/') + oldImage);
+                }
+
+                req.flash('success', 'Category has been successfully updated.');
+                return res.redirect('/' + CATEGORY_ROUTE_MAIN);
+            }
+
+            req.flash('error', 'Category has not been updated.');
+            return res.redirect('/' + CATEGORY_ROUTE_MAIN);
+        } catch (error) {
+            req.flash('error', error);
+            res.redirect('/' + CATEGORY_ROUTE_EDIT + '/'+ id);
         }
     }
 }

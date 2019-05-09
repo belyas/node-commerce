@@ -10,6 +10,7 @@
             <th scope="col">Name</th>
             <th scope="col">Created</th>
             <th scope="col">Updated</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -23,6 +24,11 @@
                 <td><%= category.name %></td>
                 <td><%= formatStringDate(category.createdAt) %></td>
                 <td><%= formatStringDate(category.updatedAt) %></td>
+                <td>
+                  <a href="categories/edit/<%= category._id %>">
+                      <i class="fas fa-edit"></i>
+                  </a>
+                </td>
             </tr>
             <% i++; } } else { %>
             <tr>
