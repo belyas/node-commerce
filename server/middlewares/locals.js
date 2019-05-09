@@ -1,4 +1,5 @@
 import { formatStringDate } from '../utils/date';
+import { ltrim, capitalize } from '../utils/string';
 
 export default (req, res, next) => {
     res.locals.isAuthenticated = req.session.isLoggedIn;
@@ -12,6 +13,8 @@ export default (req, res, next) => {
     res.locals.successMessage = successMessage.length ? successMessage[0] : null;
 
     res.locals.formatStringDate = formatStringDate;
+    res.locals.ltrim = ltrim;
+    res.locals.capitalize = capitalize;
 
     next();
 };
