@@ -1,7 +1,7 @@
 <%- include('../_partials/header.ejs') %>
 <%- include('../_partials/navigation.ejs') %>
 
-<h1 class="text-center">Edit category: <%= capitalize(decodeStr(category.name)) %></h1>
+<h1 class="text-center">Edit category: <%= pipe(capitalize, decodeStr)(category.name) %></h1>
 
 <div id="category-form" class="wrapper fadeInDown">
     <div id="formContent" class="auto-mg">

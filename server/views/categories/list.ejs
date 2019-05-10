@@ -21,7 +21,7 @@
             %>
             <tr>
                 <th scope="row"><%= i %></th>
-                <td><%= capitalize(category.name) %></td>
+                <td><%= pipe(capitalize, decodeStr)(category.name) %></td>
                 <td><%= formatStringDate(category.createdAt) %></td>
                 <td><%= formatStringDate(category.updatedAt) %></td>
                 <td>
