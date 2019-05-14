@@ -19,6 +19,7 @@ import HomeRoute,
     ProductRouter
 } from './routes/web';
 import { ErroController } from './controllers/web';
+import { CategoryRouter as CategoryRouterApi } from './routes/api';
 
 dotenv.config();
 
@@ -53,6 +54,7 @@ app.use(csrfProtection);
 app.use(flash());
 app.use(LocalsMiddleware);
 
+app.use('/api/categories', CategoryRouterApi);
 app.use(HomeRoute);
 app.use('/auth', AuthRouter);
 app.use('/profile', IsAuthMiddleware, ProfileRouter);
