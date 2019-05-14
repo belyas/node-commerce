@@ -18,7 +18,7 @@ import HomeRoute,
     ProfileRouter,
     ProductRouter
 } from './routes/web';
-import { ErroController } from './controllers';
+import { ErroController } from './controllers/web';
 
 dotenv.config();
 
