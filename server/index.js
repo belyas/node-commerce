@@ -8,8 +8,15 @@ import methodOverride from 'method-override';
 import csrf from 'csurf';
 import flash from 'connect-flash';
 import connectMongodbSession from 'connect-mongodb-session';
+import cors from 'cors';
+import helmet from 'helmet';
 // Middlewares
-import { LocalsMiddleware, UploadMiddleware, IsAuthMiddleware } from './middlewares';
+import {
+    LocalsMiddleware,
+    UploadMiddleware,
+    IsAuthMiddleware,
+    isAuthenticatedApi
+} from './middlewares';
 // Routes
 import HomeRoute,
 {
@@ -19,7 +26,10 @@ import HomeRoute,
     ProductRouter
 } from './routes/web';
 import { ErroController } from './controllers/web';
-import { CategoryRouter as CategoryRouterApi } from './routes/api';
+import {
+    CategoryRouter as CategoryRouterApi,
+    AuthRouter as AuthRouterApi
+} from './routes/api';
 
 dotenv.config();
 
@@ -29,17 +39,23 @@ const store = new MongoDbStore({
     uri: process.env.NC_MONGO_DB_URI,
     collection: 'sessions'
 });
-const csrfProtection = csrf();
 
+const csrfProtection = csrf();
 const app = express();
 const port = process.env.PORT || 8000;
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
+app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
+
+// API
+app.use('/api/categories', isAuthenticatedApi, CategoryRouterApi);
+app.use('/api/auth', isAuthenticatedApi, AuthRouterApi);
+
 app.use(methodOverride('_method'));
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret: process.env.SECRET_KEY,
@@ -54,7 +70,7 @@ app.use(csrfProtection);
 app.use(flash());
 app.use(LocalsMiddleware);
 
-app.use('/api/categories', CategoryRouterApi);
+// WEB
 app.use(HomeRoute);
 app.use('/auth', AuthRouter);
 app.use('/profile', IsAuthMiddleware, ProfileRouter);
