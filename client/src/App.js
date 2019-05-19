@@ -1,21 +1,12 @@
 import React from 'react';
-import { Navbar, NavbarBrand, NavItem, NavLink, Nav }  from 'reactstrap';
+import Header from './components/Header/Header';
+import Menu from './components/Menu/Menu';
 
 function App() {
   return (
     <div>
-      <Navbar color="dark" dark expand="md">
-       <NavbarBrand href="/">Node commerce</NavbarBrand>
-        <Nav className="ml-auto" navbar>
-          <NavItem>
-            <NavLink href="/login">Login</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="/singup">Signup</NavLink>
-          </NavItem>
-        </Nav>
-      </Navbar>
-
+      <Header />
+      <Menu />
       <p style={{
           display: 'flex',
           alignContent: 'center',
