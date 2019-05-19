@@ -1,20 +1,29 @@
-import React from "react";
-import { Navbar, NavbarBrand, NavItem, NavLink, Nav } from "reactstrap";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-const Header = props=> {
-  return (
-    <Navbar color="dark" dark expand="md">
-      <NavbarBrand href="/">Node commerce</NavbarBrand>
-      <Nav className="ml-auto" navbar>
-        <NavItem>
-          <NavLink href="/login">Login</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink href="/singup">Signup</NavLink>
-        </NavItem>
-      </Nav>
-    </Navbar>
-  );
+const Header = props => {
+    return (
+        <header>
+            <div className="navbar navbar-expand-md navbar-dark bg-dark">
+                <NavLink className="navbar-brand" to="/">
+                    Node commerce
+                </NavLink>
+
+                <ul className="nav ml-auto navbar-nav">
+                    <li className="nav-item">
+                        <NavLink className="nav-link" to="/login">
+                            Login
+                        </NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink className="nav-link" to="/signup">
+                            Signup
+                        </NavLink>
+                    </li>
+                </ul>
+            </div>
+        </header>
+    );
 };
 
 export default Header;
