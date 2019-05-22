@@ -50,7 +50,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // API
-app.use('/api/categories', isAuthenticatedApi, CategoryRouterApi);
+app.use('/api/categories', CategoryRouterApi);
 app.use('/api/auth', isAuthenticatedApi, AuthRouterApi);
 
 app.use(methodOverride('_method'));
