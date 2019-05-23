@@ -15,20 +15,19 @@ import {
     LocalsMiddleware,
     UploadMiddleware,
     IsAuthMiddleware,
-    isAuthenticatedApi
+    isAuthenticatedApi,
 } from './middlewares';
 // Routes
-import HomeRoute,
-{
+import HomeRoute, {
     CategoryRouter,
     AuthRouter,
     ProfileRouter,
-    ProductRouter
+    ProductRouter,
 } from './routes/web';
 import { ErroController } from './controllers/web';
 import {
     CategoryRouter as CategoryRouterApi,
-    AuthRouter as AuthRouterApi
+    AuthRouter as AuthRouterApi,
 } from './routes/api';
 
 dotenv.config();
@@ -37,7 +36,7 @@ dotenv.config();
 const MongoDbStore = connectMongodbSession(session);
 const store = new MongoDbStore({
     uri: process.env.NC_MONGO_DB_URI,
-    collection: 'sessions'
+    collection: 'sessions',
 });
 
 const csrfProtection = csrf();
@@ -51,21 +50,23 @@ app.use(cors());
 
 // API
 app.use('/api/categories', CategoryRouterApi);
-app.use('/api/auth', isAuthenticatedApi, AuthRouterApi);
+app.use('/api/auth', AuthRouterApi);
 
 app.use(methodOverride('_method'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({
-    secret: process.env.SECRET_KEY,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
-    },
-    store
-}));
+app.use(
+    session({
+        secret: process.env.SECRET_KEY,
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+        },
+        store,
+    })
+);
 app.use(csrfProtection);
 app.use(flash());
 app.use(LocalsMiddleware);
@@ -74,8 +75,18 @@ app.use(LocalsMiddleware);
 app.use(HomeRoute);
 app.use('/auth', AuthRouter);
 app.use('/profile', IsAuthMiddleware, ProfileRouter);
-app.use('/categories', IsAuthMiddleware, UploadMiddleware('categories').single('category_image'), CategoryRouter);
-app.use('/products', IsAuthMiddleware, UploadMiddleware('products').single('product_image'), ProductRouter);
+app.use(
+    '/categories',
+    IsAuthMiddleware,
+    UploadMiddleware('categories').single('category_image'),
+    CategoryRouter
+);
+app.use(
+    '/products',
+    IsAuthMiddleware,
+    UploadMiddleware('products').single('product_image'),
+    ProductRouter
+);
 
 app.use(ErroController.err404);
 // connect to db then launch the server
