@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function useFormValidation(initialState, validate) {
+function useFormValidation(initialState, validate, successFunc) {
     const [values, setValues] = useState(initialState);
     const [errors, setErrors] = useState({});
     const [isSubmitting, setSubmitting] = useState(false);
@@ -10,8 +10,7 @@ function useFormValidation(initialState, validate) {
             const noErrors = Object.keys(errors).length === 0;
 
             if (noErrors) {
-                // submit form to endpoint to login
-                setSubmitting(false);
+                successFunc(values);
             } else {
                 setSubmitting(false);
             }
