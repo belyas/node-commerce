@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { concatClasses } from '../../../utils/helpers';
 import useFormValidation from '../../../hooks/useFormValidation';
 import { validateLoginAuth } from '../../../utils/validateAuth';
+import loginAuth from '../../../apis/authLogin';
 import styles from './Login.module.css';
 
 const INITIAL_STATE = {
@@ -23,7 +24,7 @@ const Login = () => {
         onBlurHandler,
         errors,
         isSubmitting,
-    } = useFormValidation(INITIAL_STATE, validateLoginAuth);
+    } = useFormValidation(INITIAL_STATE, validateLoginAuth, loginAuth);
 
     return (
         <div className={concatClasses(styles.wrapper, styles.fadeInDown)}>
