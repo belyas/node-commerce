@@ -15,11 +15,6 @@ const Header = props => {
                             Login
                         </NavLink>
                     </li>
-                    <li className="nav-item">
-                        <NavLink className="nav-link" to="/signup">
-                            Signup
-                        </NavLink>
-                    </li>
                 </ul>
             </div>
         </header>
