@@ -29,10 +29,6 @@ class Login extends Component {
         password: '',
     };
 
-    componentDidMount() {
-        this.props.checkUserStatus();
-    }
-
     toggleLoginHandler = () => {
         this.setState(prevState => {
             return {
