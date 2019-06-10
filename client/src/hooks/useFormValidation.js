@@ -1,32 +1,17 @@
 import { useState, useEffect } from 'react';
 
-function useFormValidation(initialState, validate, successFunc, redirector) {
+function useFormValidation(initialState, validate) {
     const [values, setValues] = useState(initialState);
     const [errors, setErrors] = useState({});
     const [isSubmitting, setSubmitting] = useState(false);
 
     useEffect(() => {
         if (isSubmitting) {
-            const checkSubmission = async () => {
-                const noErrors = Object.keys(errors).length === 0;
+            const noErrors = Object.keys(errors).length === 0;
 
-                if (noErrors) {
-                    try {
-                        let hasLoggedIn = await successFunc(values);
-                        console.log(`Is success login: ${hasLoggedIn}`);
-
-                        if (hasLoggedIn) {
-                            redirector.push('/');
-                        }
-                    } catch (err) {
-                        console.log(`Is success login: ${err.message}`);
-                    }
-                } else {
-                    setSubmitting(false);
-                }
-            };
-            
-            checkSubmission();
+            if (!noErrors) {
+                setSubmitting(false);
+            }
         }
         // eslint-disable-next-line
     }, [errors]);

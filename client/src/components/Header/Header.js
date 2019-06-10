@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Header = props => {
+const Header = () => {
     return (
         <header>
             <div className="navbar navbar-expand-md navbar-dark bg-dark">
