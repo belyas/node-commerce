@@ -8,20 +8,20 @@ const loginAuth = values => {
         })
         .then(res => res.data)
         .then(res => {
-            if (res.error) {
-                console.log('Error: ', res.error);
-
-                return false;
-            }
-
             if (res.token) {
                 localStorage.setItem('token', res.token);
                 localStorage.setItem('userId', res.userId);
 
                 return true;
             }
+
+            console.log('Error: ', res.error);
+            return false;
         })
-        .catch(console.log);
+        .catch(err => {
+            console.log(`Catch error: ${err}`);
+            return false;
+        });
 };
 
 export default loginAuth;
