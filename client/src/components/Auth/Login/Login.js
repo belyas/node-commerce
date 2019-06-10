@@ -11,7 +11,7 @@ const INITIAL_STATE = {
     password: '',
 };
 
-const Login = () => {
+const Login = ({ history }) => {
     let [isLogin, setLogin] = useState(true);
     let hideForm = { display: 'none' };
     const toggleLoginHandler = () => {
@@ -23,8 +23,8 @@ const Login = () => {
         onSubmitHanlder,
         onBlurHandler,
         errors,
-        isSubmitting,
-    } = useFormValidation(INITIAL_STATE, validateLoginAuth, loginAuth);
+        isSubmitting
+    } = useFormValidation(INITIAL_STATE, validateLoginAuth, loginAuth, history);
 
     return (
         <div className={concatClasses(styles.wrapper, styles.fadeInDown)}>
