@@ -19,7 +19,7 @@ const Menu = props => {
     return (
         <div className="navbar navbar-expand-md navbar-light bg-light justify-content-center">
             <ul className="nav">
-                {categories.length &&
+                {categories.length > 0 &&
                     categories.map(category => {
                         return (
                             <li className="nav-item" key={category._id}>
