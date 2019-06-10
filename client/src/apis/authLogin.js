@@ -10,11 +10,15 @@ const loginAuth = values => {
         .then(res => {
             if (res.error) {
                 console.log('Error: ', res.error);
+
+                return false;
             }
 
             if (res.token) {
                 localStorage.setItem('token', res.token);
                 localStorage.setItem('userId', res.userId);
+
+                return true;
             }
         })
         .catch(console.log);
