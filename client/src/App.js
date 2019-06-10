@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Header from './components/Header/Header';
 import Menu from './components/Menu/Menu';
-import Login from './components/Auth/Login/Login';
+import Login from './containers/Auth/Login';
 import * as actions from './store/actions';
 
 class App extends Component {

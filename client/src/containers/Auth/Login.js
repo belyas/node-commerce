@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { concatClasses } from '../../../utils/helpers';
+import { concatClasses } from '../../utils/helpers';
 // import useFormValidation from '../../../hooks/useFormValidation';
-import { validateLoginAuth } from '../../../utils/validateAuth';
+import { validateLoginAuth } from '../../utils/validateAuth';
 import styles from './Login.module.css';
-import * as actions from '../../../store/actions';
+import * as actions from '../../store/actions';
 
 // const INITIAL_STATE = {
 //     email: '',
