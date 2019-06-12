@@ -1,17 +1,11 @@
 import * as actionTypes from '../actions/actionTypes';
+import { updateObject } from '../../utils/helpers';
 
 const initialState = {
     token: null,
     userId: null,
     error: null,
     loading: false,
-};
-
-const updateObject = (oldObject, newObjectProps) => {
-    return {
-        ...oldObject,
-        ...newObjectProps,
-    };
 };
 
 const authStart = (state, action) => {

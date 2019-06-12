@@ -2,4 +2,11 @@ const concatClasses = (...classes) => {
     return classes.join(' ');
 };
 
-export { concatClasses };
+const updateObject = (oldObject, newObjectProps) => {
+    return {
+        ...oldObject,
+        ...newObjectProps,
+    };
+};
+
+export { concatClasses, updateObject };
