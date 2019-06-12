@@ -1,40 +1,54 @@
-import React, { useEffect, useState } from 'react';
+import React, { PureComponent } from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Spinner } from 'reactstrap';
 
-import axios from '../../axios';
+import { fetchCategories } from '../../store/actions';
 
-const Menu = props => {
-    const [categories, setCategories] = useState([]);
+class Menu extends PureComponent {
+    componentDidMount() {
+        this.props.fetchCategories();
+    }
+    render() {
+        const { loading, categories } = this.props;
+        return (
+            <div className="navbar navbar-expand-md navbar-light bg-light justify-content-center">
+                <ul className="nav">
+                    {loading && <Spinner size="sm" color="primary" />}
+                    {categories &&
+                        categories.length > 0 &&
+                        categories.map(category => {
+                            return (
+                                <li className="nav-item" key={category._id}>
+                                    <NavLink
+                                        className="nav-link"
+                                        to={`/category/${category._id}`}>
+                                        {' '}
+                                        {category.name}
+                                    </NavLink>
+                                </li>
+                            );
+                        })}
+                </ul>
+            </div>
+        );
+    }
+}
 
-    useEffect(() => {
-        axios
-            .get('/categories')
-            .then(res => res.data)
-            .then(res => {
-                setCategories(res.data);
-            })
-            .catch(console.log);
-    }, []);
-
-    return (
-        <div className="navbar navbar-expand-md navbar-light bg-light justify-content-center">
-            <ul className="nav">
-                {categories.length > 0 &&
-                    categories.map(category => {
-                        return (
-                            <li className="nav-item" key={category._id}>
-                                <NavLink
-                                    className="nav-link"
-                                    to={`/category/${category._id}`}>
-                                    {' '}
-                                    {category.name}
-                                </NavLink>
-                            </li>
-                        );
-                    })}
-            </ul>
-        </div>
-    );
+const mapStateToProps = state => {
+    return {
+        categories: state.category.categories,
+        loading: state.category.loading,
+    };
 };
 
-export default Menu;
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchCategories: () => dispatch(fetchCategories()),
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Menu);
