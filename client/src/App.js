@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Header from './components/Header/Header';
 import Menu from './components/Menu/Menu';
 import Login from './containers/Auth/Login';
-import * as actions from './store/actions';
+import Home from './components/Home/Home';
+import { authCheckState } from './store/actions';
 
 class App extends Component {
     componentDidMount() {
-        this.props.checkUserStatus();
+        this.props.authCheckState();
     }
 
     render() {
@@ -24,7 +26,7 @@ class App extends Component {
                 <Header />
                 <Menu />
                 <Switch>
-                    <Route path="/" exact component={() => <div>Home</div>} />
+                    <Route path="/" exact component={Home} />
                     {extraRoutes}
                 </Switch>
             </div>
@@ -38,12 +40,8 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        checkUserStatus: () => dispatch(actions.authCheckState()),
-    };
-};
-
+const mapDispatchToProps = dispatch =>
+    bindActionCreators({ authCheckState }, dispatch);
 export default withRouter(
     connect(
         mapStateToProps,

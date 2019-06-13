@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Spinner } from 'reactstrap';
 
 import { fetchCategories } from '../../store/actions';
@@ -42,11 +43,8 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        fetchCategories: () => dispatch(fetchCategories()),
-    };
-};
+const mapDispatchToProps = dispatch =>
+    bindActionCreators({ fetchCategories }, dispatch);
 
 export default connect(
     mapStateToProps,
