@@ -3,6 +3,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import ErrorBoundary from './hoc/ErrorBoundary/ErrorBoundary';
 import Header from './components/Header/Header';
 import Menu from './components/Menu/Menu';
 import Login from './containers/Auth/Login';
@@ -22,13 +23,15 @@ class App extends Component {
         // }
 
         return (
-            <div>
-                <Header />
-                <Menu />
-                <Switch>
-                    <Route path="/" exact component={Home} />
-                    {extraRoutes}
-                </Switch>
+            <div className="container">
+                <ErrorBoundary>
+                    <Header />
+                    <Menu />
+                    <Switch>
+                        <Route path="/" exact component={Home} />
+                        {extraRoutes}
+                    </Switch>
+                </ErrorBoundary>
             </div>
         );
     }
@@ -42,6 +45,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators({ authCheckState }, dispatch);
+
 export default withRouter(
     connect(
         mapStateToProps,
