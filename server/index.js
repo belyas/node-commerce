@@ -26,8 +26,9 @@ import HomeRoute, {
 } from './routes/web';
 import { ErroController } from './controllers/web';
 import {
-    CategoryRouter as CategoryRouterApi,
-    AuthRouter as AuthRouterApi,
+    categoryRouter as categoryRouterApi,
+    authRouter as authRouterApi,
+    productRouter as productRouterApi,
 } from './routes/api';
 
 dotenv.config();
@@ -49,8 +50,9 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // API
-app.use('/api/categories', CategoryRouterApi);
-app.use('/api/auth', AuthRouterApi);
+app.use('/api/categories', categoryRouterApi);
+app.use('/api/auth', authRouterApi);
+app.use('/api/products', productRouterApi);
 
 app.use(methodOverride('_method'));
 app.set('views', path.join(__dirname, 'views'));
