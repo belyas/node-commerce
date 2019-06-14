@@ -1,7 +1,5 @@
-import CategoryRouter from './category';
-import AuthRouter from './auth';
+import categoryRouter from './category';
+import authRouter from './auth';
+import productRouter from './product';
 
-export {
-    CategoryRouter,
-    AuthRouter
-};
+export { categoryRouter, authRouter, productRouter };
