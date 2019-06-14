@@ -7,7 +7,6 @@ import ErrorBoundary from './hoc/ErrorBoundary/ErrorBoundary';
 import AsyncComponent from './hoc/AsyncComponent/AsyncComponent';
 import Header from './components/Header/Header';
 import Menu from './components/Menu/Menu';
-// import Login from './containers/Auth/Login';
 import Home from './components/Home/Home';
 import { authCheckState } from './store/actions';
 
