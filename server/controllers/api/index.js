@@ -1,7 +1,5 @@
-import CategoryController from './category';
-import AuthController from './auth';
+import categoryController from './category';
+import authController from './auth';
+import productController from './product';
 
-export {
-    CategoryController,
-    AuthController
-};
+export { categoryController, authController, productController };
