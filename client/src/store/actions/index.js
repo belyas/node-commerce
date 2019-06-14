@@ -12,3 +12,9 @@ export {
     fetchingCategories,
     fetchCategories,
 } from './categories';
+export {
+    fetchingProducts,
+    failedFetchingProducts,
+    fetchedProducts,
+    getProducts,
+} from './products';
