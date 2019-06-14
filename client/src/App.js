@@ -4,11 +4,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import ErrorBoundary from './hoc/ErrorBoundary/ErrorBoundary';
+import AsyncComponent from './hoc/AsyncComponent/AsyncComponent';
 import Header from './components/Header/Header';
 import Menu from './components/Menu/Menu';
-import Login from './containers/Auth/Login';
+// import Login from './containers/Auth/Login';
 import Home from './components/Home/Home';
 import { authCheckState } from './store/actions';
+
+const Login = AsyncComponent(() => import('./containers/Auth/Login'));
 
 class App extends Component {
     componentDidMount() {
