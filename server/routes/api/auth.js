@@ -1,8 +1,8 @@
 import express from 'express';
-import { AuthController } from '../../controllers/api';
+import { authController } from '../../controllers/api';
 
 const router = express.Router();
 
-router.post('/', AuthController.login);
+router.post('/', authController.login);
 
 export default router;
