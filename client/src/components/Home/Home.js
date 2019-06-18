@@ -16,7 +16,7 @@ class Home extends Component {
     render() {
         const { loading, products } = this.props;
         return (
-            <Row>
+            <Row id="products-list">
                 {loading && <Spinner color="primary" />}
                 {products &&
                     products.map(product => {
