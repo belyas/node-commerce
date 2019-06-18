@@ -9,6 +9,7 @@ import Header from './components/Header/Header';
 import Menu from './components/Menu/Menu';
 import Home from './components/Home/Home';
 import { authCheckState } from './store/actions';
+import CategoryProducts from './containers/Products/CategoryProducts/CategoryProducts';
 
 const Login = AsyncComponent(() => import('./containers/Auth/Login'));
 
@@ -31,6 +32,10 @@ class App extends Component {
                     <Menu />
                     <Switch>
                         <Route path="/" exact component={Home} />
+                        <Route
+                            path="/category/:category_id"
+                            component={CategoryProducts}
+                        />
                         {extraRoutes}
                     </Switch>
                 </ErrorBoundary>
