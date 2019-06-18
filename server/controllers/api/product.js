@@ -1,4 +1,5 @@
 import ProductModel from '../../models/product';
+import { productsPresenter } from '../../utils/presenter';
 
 export default class Product {
     static async all(req, res) {
@@ -6,11 +7,20 @@ export default class Product {
             const products = await ProductModel.find({}).sort([
                 ['createdAt', -1],
             ]);
-            const base_url = process.env.BASE_URL;
-            const updatedProducts = products.map(product => {
-                product.image = `${base_url}/images/products/${product.image}`;
-                return product;
-            });
+            const updatedProducts = productsPresenter(products);
+            res.status(200).json({ data: updatedProducts });
+        } catch (err) {
+            return res.status(500).json({ error: err });
+        }
+    }
+
+    static async getProductsByCategoryId(req, res) {
+        try {
+            const { category_id } = req.params;
+            const products = await ProductModel.find({
+                category: category_id,
+            }).sort([['createdAt', -1]]);
+            const updatedProducts = productsPresenter(products);
 
             res.status(200).json({ data: updatedProducts });
         } catch (err) {
