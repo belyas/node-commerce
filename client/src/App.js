@@ -10,6 +10,7 @@ import Menu from './components/Menu/Menu';
 import Home from './components/Home/Home';
 import { authCheckState } from './store/actions';
 import CategoryProducts from './containers/Products/CategoryProducts/CategoryProducts';
+import ProductDetail from './containers/Products/ProductDetail/ProductDetait';
 
 const Login = AsyncComponent(() => import('./containers/Auth/Login'));
 
@@ -35,6 +36,10 @@ class App extends Component {
                         <Route
                             path="/category/:category_id"
                             component={CategoryProducts}
+                        />
+                        <Route
+                            path="/product/:product_id"
+                            component={ProductDetail}
                         />
                         {extraRoutes}
                     </Switch>
