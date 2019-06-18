@@ -36,7 +36,7 @@ export const getProducts = () => {
 
             dispatch(fetchedProducts(data.data));
         } catch (err) {
-            dispatch(failedFetchingProducts(err.toString()));
+            dispatch(failedFetchingProducts(err.message));
         }
     };
 };
@@ -51,7 +51,7 @@ export const getCategoryProducts = category_id => {
 
             dispatch(fetchedCategoryProducts(data.data, category_id));
         } catch (err) {
-            dispatch(failedFetchingProducts(err.toString()));
+            dispatch(failedFetchingProducts(err.message));
         }
     };
 };
