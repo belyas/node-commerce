@@ -8,6 +8,7 @@ import {
     Button,
     Col,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 const ProductCard = ({ size, product }) => {
     let getCardSize = size || 4;
@@ -15,12 +16,14 @@ const ProductCard = ({ size, product }) => {
     return (
         <Col sm={getCardSize}>
             <Card>
-                <CardImg
-                    top
-                    width="100%"
-                    src={product.image}
-                    alt={product.name}
-                />
+                <Link to={`/product/${product._id}`}>
+                    <CardImg
+                        top
+                        width="100%"
+                        src={product.image}
+                        alt={product.name}
+                    />
+                </Link>
                 <CardBody>
                     <CardTitle>{product.name}</CardTitle>
                     <CardSubtitle>${product.price}</CardSubtitle>
