@@ -9,7 +9,7 @@ const CategoryProducts = props => {
     const { products, getProducts } = props;
 
     useEffect(() => {
-        if (!products[category_id]) {
+        if (!products) {
             getProducts(category_id);
         }
     }, [category_id]);
@@ -17,9 +17,9 @@ const CategoryProducts = props => {
     return <CategoryProductsComponent {...props} category_id={category_id} />;
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, { match }) => {
     return {
-        products: state.product.category_products,
+        products: state.product.category_products[match.params.category_id],
         loading: state.product.loading,
     };
 };

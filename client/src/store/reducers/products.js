@@ -3,6 +3,7 @@ import {
     PRODUCTS_FETCHED,
     PRODUCTS_FETCHING,
     CATEGORY_PRODUCTS_FETCHED,
+    PRODUCT_FETCHED,
 } from '../actions/actionTypes';
 import { updateObject } from '../../utils/helpers';
 
@@ -12,6 +13,7 @@ const initialState = {
     products: [],
     category_products: {},
     category_id: 0,
+    single_product: {},
 };
 
 const failedProducts = (state, action) => {
@@ -42,6 +44,18 @@ const fetchedCategoryProducts = (state, action) => {
     });
 };
 
+const fetchedProduct = (state, action) => {
+    const { product_id, product } = action.payload;
+
+    return updateObject(state, {
+        loading: false,
+        single_product: {
+            ...state.single_product,
+            [product_id]: product,
+        },
+    });
+};
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case PRODUCTS_FAIL:
@@ -52,6 +66,8 @@ const reducer = (state = initialState, action) => {
             return fetchedProducts(state, action);
         case CATEGORY_PRODUCTS_FETCHED:
             return fetchedCategoryProducts(state, action);
+        case PRODUCT_FETCHED:
+            return fetchedProduct(state, action);
         default:
             return state;
     }
