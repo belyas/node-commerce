@@ -1,3 +1,1 @@
-import { productsPresenter } from './product';
-
-export { productsPresenter };
+export { productsPresenter, productPresenter } from './product';
