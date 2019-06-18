@@ -18,4 +18,5 @@ export {
     fetchedProducts,
     getProducts,
     getCategoryProducts,
+    getProduct,
 } from './products';
