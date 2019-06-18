@@ -8,7 +8,9 @@ import { getProducts } from '../../store/actions';
 
 class Home extends Component {
     componentDidMount() {
-        this.props.getProducts();
+        if (!this.props.products.length) {
+            this.props.getProducts();
+        }
     }
 
     render() {
