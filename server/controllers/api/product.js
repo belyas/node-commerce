@@ -1,5 +1,7 @@
+import mongoose from 'mongoose';
+
 import ProductModel from '../../models/product';
-import { productsPresenter } from '../../utils/presenter';
+import { productsPresenter, productPresenter } from '../../utils/presenter';
 
 export default class Product {
     static async all(req, res) {
@@ -23,6 +25,19 @@ export default class Product {
             const updatedProducts = productsPresenter(products);
 
             res.status(200).json({ data: updatedProducts });
+        } catch (err) {
+            return res.status(500).json({ error: err });
+        }
+    }
+
+    static async getProductId(req, res) {
+        try {
+            const { product_id } = req.params;
+            const _id = mongoose.Types.ObjectId(product_id);
+            const product = await ProductModel.findById(_id);
+            const updatedProduct = productPresenter(product);
+
+            res.status(200).json(updatedProduct);
         } catch (err) {
             return res.status(500).json({ error: err });
         }
