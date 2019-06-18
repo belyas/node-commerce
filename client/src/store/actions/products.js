@@ -4,6 +4,7 @@ import {
     PRODUCTS_FETCHING,
     PRODUCTS_FETCHED,
     PRODUCTS_FAIL,
+    CATEGORY_PRODUCTS_FETCHED,
 } from './actionTypes';
 
 export const fetchingProducts = () => ({
@@ -20,6 +21,11 @@ export const fetchedProducts = products => ({
     payload: { products },
 });
 
+export const fetchedCategoryProducts = (products, category_id) => ({
+    type: CATEGORY_PRODUCTS_FETCHED,
+    payload: { products, category_id },
+});
+
 export const getProducts = () => {
     return async dispatch => {
         dispatch(fetchingProducts());
@@ -29,6 +35,21 @@ export const getProducts = () => {
             const data = await res.data;
 
             dispatch(fetchedProducts(data.data));
+        } catch (err) {
+            dispatch(failedFetchingProducts(err.toString()));
+        }
+    };
+};
+
+export const getCategoryProducts = category_id => {
+    return async dispatch => {
+        dispatch(fetchingProducts());
+
+        try {
+            const res = await axios.get(`/products/${category_id}`);
+            const data = await res.data;
+
+            dispatch(fetchedCategoryProducts(data.data, category_id));
         } catch (err) {
             dispatch(failedFetchingProducts(err.toString()));
         }
