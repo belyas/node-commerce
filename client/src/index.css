@@ -16,3 +16,15 @@ body {
 #products-list .card-img-top {
     max-height: 200px;
 }
+#product-details {
+    display: flex;
+    margin-top: 20px;
+}
+#product-details img {
+    width: 300px;
+}
+.product-price {
+    color: #e80754;
+    font-size: 17px;
+    font-weight: bold;
+}
