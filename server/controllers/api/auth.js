@@ -34,7 +34,11 @@ export default class Auth {
 
             res.status(200).json({ token, userId: user._id.toString() });
         } catch (err) {
-            return res.status(500).json({ error: err.message });
+            res.status(500).json({ error: err.message });
         }
+    }
+
+    static checkUserStatus(req, res) {
+        res.status(200).json({ success: true });
     }
 }
