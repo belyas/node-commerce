@@ -4,15 +4,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import ErrorBoundary from './hoc/ErrorBoundary/ErrorBoundary';
-import AsyncComponent from './hoc/AsyncComponent/AsyncComponent';
-import Header from './components/Header/Header';
+// import AsyncComponent from './hoc/AsyncComponent/AsyncComponent';
+import Header from './containers/Header/Header';
 import Menu from './containers/Menu/Menu';
 import Home from './components/Home/Home';
 import { authCheckState } from './store/actions';
 import CategoryProducts from './containers/Products/CategoryProducts/CategoryProducts';
 import ProductDetail from './containers/Products/ProductDetail/ProductDetait';
+import Login from './containers/Auth/Login';
+import Logout from './containers/Auth/Logout';
 
-const Login = AsyncComponent(() => import('./containers/Auth/Login'));
+// const Login = AsyncComponent(() => import('./containers/Auth/Login'));
 
 class App extends Component {
     componentDidMount() {
@@ -20,12 +22,6 @@ class App extends Component {
     }
 
     render() {
-        let extraRoutes = null;
-
-        // if (!this.props.isAuthenticated) {
-        extraRoutes = <Route path="/login" component={Login} />;
-        // }
-
         return (
             <div className="container">
                 <ErrorBoundary>
@@ -41,7 +37,8 @@ class App extends Component {
                             path="/product/:product_id"
                             component={ProductDetail}
                         />
-                        {extraRoutes}
+                        <Route path="/login" component={Login} />
+                        <Route path="/logout" component={Logout} />
                     </Switch>
                 </ErrorBoundary>
             </div>
