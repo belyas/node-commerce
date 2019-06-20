@@ -1,16 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Spinner } from 'reactstrap';
 
-import * as actions from '../../store/actions';
-
-const Menu = ({ loading, categories, fetchCategoriesAction }) => {
-    useEffect(() => {
-        fetchCategoriesAction();
-    }, []);
-
+const Menu = ({ loading, categories }) => {
     return (
         <div className="navbar navbar-expand-md navbar-light bg-light justify-content-center">
             <ul className="nav">
@@ -33,19 +25,4 @@ const Menu = ({ loading, categories, fetchCategoriesAction }) => {
     );
 };
 
-const mapStateToProps = state => {
-    return {
-        categories: state.category.categories,
-        loading: state.category.loading,
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    const fetchCategoriesAction = actions.fetchCategories;
-    return bindActionCreators({ fetchCategoriesAction }, dispatch);
-};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Menu);
+export default Menu;
