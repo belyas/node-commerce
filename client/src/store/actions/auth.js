@@ -1,4 +1,5 @@
 import axios from '../../axios';
+import { setAuthToken } from '../../utils/api';
 import * as actionTypes from '../actions/actionTypes';
 
 export const authStart = () => {
@@ -58,7 +59,7 @@ export const auth = (email, password) => {
 };
 
 export const authCheckState = () => {
-    return dispatch => {
+    return async dispatch => {
         const token = localStorage.getItem('token');
 
         if (!token) {
@@ -66,7 +67,19 @@ export const authCheckState = () => {
         } else {
             const userId = localStorage.getItem('userId');
 
-            dispatch(authSuccess(token, userId));
+            // check server response
+            try {
+                setAuthToken();
+                const res = await axios.post('/auth/checkstatus');
+                const data = await res.data;
+
+                console.log('[Response Check]: ', data);
+
+                dispatch(authSuccess(token, userId));
+            } catch (err) {
+                console.log('[AuthCheckState::ResponseError]: ', err);
+                dispatch(authLoggedout());
+            }
         }
     };
 };
