@@ -12,16 +12,17 @@ export const isAuthenticatedApi = (req, res, next) => {
     const authorization = req.get('Authorization');
 
     if (!authorization) {
-      return res.status(401).json({ error: 'Not authenticated.' });
+        return res.status(401).json({ error: 'Not authenticated.' });
     }
 
     const token = authorization.replace(/^Bearer\s+/, '');
     let decodedToken;
 
     try {
-      decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     } catch (err) {
-      return res.status(500).json({ error: err.message });
+        console.log('[Decode token Err]: ', err.message);
+        return res.status(401).json({ error: true });
     }
 
     if (!decodedToken) {
