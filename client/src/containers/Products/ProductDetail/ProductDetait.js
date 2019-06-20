@@ -13,6 +13,7 @@ const ProductDetail = props => {
         if (!product) {
             getProduct(product_id);
         }
+        // eslint-disable-next-line
     }, []);
 
     return <ProductDetailComponent {...props} product_id={product_id} />;

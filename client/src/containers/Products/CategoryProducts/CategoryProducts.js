@@ -12,6 +12,7 @@ const CategoryProducts = props => {
         if (!products) {
             getProducts(category_id);
         }
+        // eslint-disable-next-line
     }, [category_id]);
 
     return <CategoryProductsComponent {...props} category_id={category_id} />;
