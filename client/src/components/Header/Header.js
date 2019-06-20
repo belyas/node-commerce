@@ -1,11 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
 
-const Header = props => {
+const Header = ({ isAuthenticated }) => {
     let displayLogin = true;
 
-    if (props.isAuthenticated) {
+    if (isAuthenticated) {
         displayLogin = false;
     }
 
@@ -37,10 +36,4 @@ const Header = props => {
     );
 };
 
-const mapStateToProps = state => {
-    return {
-        isAuthenticated: state.auth.token !== null,
-    };
-};
-
-export default connect(mapStateToProps)(Header);
+export default Header;
