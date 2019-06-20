@@ -4,18 +4,28 @@ import { connect } from 'react-redux';
 import CategoryProductsComponent from '../../../components/CategoryProducts/CategoryProducts';
 import { getCategoryProducts } from '../../../store/actions';
 
-const CategoryProducts = props => {
-    const category_id = props.match.params.category_id;
-    const { products, getProducts } = props;
+const CategoryProducts = ({
+    match,
+    products,
+    getProducts,
+    loading,
+    ...props
+}) => {
+    const categoryId = match.params.category_id;
+    const childProps = {
+        ...props,
+        products,
+        loading,
+    };
 
     useEffect(() => {
         if (!products) {
-            getProducts(category_id);
+            getProducts(categoryId);
         }
         // eslint-disable-next-line
-    }, [category_id]);
+    }, [categoryId]);
 
-    return <CategoryProductsComponent {...props} category_id={category_id} />;
+    return <CategoryProductsComponent {...childProps} />;
 };
 
 const mapStateToProps = (state, { match }) => {

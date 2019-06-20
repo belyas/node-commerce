@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Spinner } from 'reactstrap';
 import Product from '../Product/ProductCard';
 
-const categoryProducts = ({ products, loading, category_id }) => {
+const categoryProducts = ({ products, loading }) => {
     return (
         <Row id="products-list">
             {loading && <Spinner color="primary" />}
