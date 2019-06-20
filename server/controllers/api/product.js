@@ -18,9 +18,9 @@ export default class Product {
 
     static async getProductsByCategoryId(req, res) {
         try {
-            const { category_id } = req.params;
+            const { categoryId } = req.params;
             const products = await ProductModel.find({
-                category: category_id,
+                category: categoryId,
             }).sort([['createdAt', -1]]);
             const updatedProducts = productsPresenter(products);
 
@@ -32,8 +32,8 @@ export default class Product {
 
     static async getProductId(req, res) {
         try {
-            const { product_id } = req.params;
-            const _id = mongoose.Types.ObjectId(product_id);
+            const { productId } = req.params;
+            const _id = mongoose.Types.ObjectId(productId);
             const product = await ProductModel.findById(_id);
             const updatedProduct = productPresenter(product);
 

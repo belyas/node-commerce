@@ -7,9 +7,9 @@ const productsPresenter = products => {
 };
 
 const productPresenter = product => {
-    const base_url = process.env.BASE_URL;
+    const baseUrl = process.env.BASE_URL;
     const updatedProduct = {};
-    updatedProduct.image = `${base_url}/images/products/${product.image}`;
+    updatedProduct.image = `${baseUrl}/images/products/${product.image}`;
     updatedProduct.name = product.name;
     updatedProduct.description = product.description;
     updatedProduct.price = product.price;
