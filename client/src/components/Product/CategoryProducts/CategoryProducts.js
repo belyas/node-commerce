@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Spinner } from 'reactstrap';
-import Product from '../Product/ProductCard';
+import Product from '../ProductCard/ProductCard';
 
 const categoryProducts = ({ products, loading }) => {
     return (
