@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Spinner } from 'reactstrap';
 
-import Product from '../Product/ProductCard';
+import Product from '../Product/ProductCard/ProductCard';
 import { getProducts } from '../../store/actions';
 
 class Home extends Component {
