@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Spinner } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 import Product from '../Product/ProductCard/ProductCard';
 
@@ -15,6 +16,11 @@ const Home = ({ loading, products }) => {
                 })}
         </Row>
     );
+};
+
+Home.propTypes = {
+    loading: PropTypes.bool.isRequired,
+    products: PropTypes.array.isRequired,
 };
 
 export default Home;
