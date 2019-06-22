@@ -1,20 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense, lazy } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import ErrorBoundary from './hoc/ErrorBoundary/ErrorBoundary';
-// import AsyncComponent from './hoc/AsyncComponent/AsyncComponent';
 import Header from './containers/Header/Header';
 import Menu from './containers/Menu/Menu';
-import Home from './containers/Home/Home';
 import { authCheckState } from './store/actions';
-import CategoryProducts from './containers/Products/CategoryProducts/CategoryProducts';
-import ProductDetail from './containers/Products/ProductDetail/ProductDetait';
-import Login from './containers/Auth/Login';
-import Logout from './containers/Auth/Logout';
 
-// const Login = AsyncComponent(() => import('./containers/Auth/Login'));
+const Logout = lazy(() => import('./containers/Auth/Logout'));
+const Login = lazy(() => import('./containers/Auth/Login'));
+const Home = lazy(() => import('./containers/Home/Home'));
+const CategoryProducts = lazy(() =>
+    import('./containers/Products/CategoryProducts/CategoryProducts')
+);
+const ProductDetail = lazy(() =>
+    import('./containers/Products/ProductDetail/ProductDetait')
+);
 
 class App extends Component {
     componentDidMount() {
@@ -27,19 +29,21 @@ class App extends Component {
                 <ErrorBoundary>
                     <Header />
                     <Menu />
-                    <Switch>
-                        <Route path="/" exact component={Home} />
-                        <Route
-                            path="/category/:category_id"
-                            component={CategoryProducts}
-                        />
-                        <Route
-                            path="/product/:product_id"
-                            component={ProductDetail}
-                        />
-                        <Route path="/login" component={Login} />
-                        <Route path="/logout" component={Logout} />
-                    </Switch>
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <Switch>
+                            <Route path="/" exact component={Home} />
+                            <Route
+                                path="/category/:category_id"
+                                component={CategoryProducts}
+                            />
+                            <Route
+                                path="/product/:product_id"
+                                component={ProductDetail}
+                            />
+                            <Route path="/login" component={Login} />
+                            <Route path="/logout" component={Logout} />
+                        </Switch>
+                    </Suspense>
                 </ErrorBoundary>
             </div>
         );
