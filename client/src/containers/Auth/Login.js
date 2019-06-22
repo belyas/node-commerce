@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { validateLoginAuth } from '../../utils/validateAuth';
-import { auth, authCheckState } from '../../store/actions';
+import { auth } from '../../store/actions';
 import LoginComponent from '../../components/Auth/Login/Login';
 
 class Login extends Component {
@@ -60,6 +61,14 @@ class Login extends Component {
     }
 }
 
+Login.propTypes = {
+    loading: PropTypes.bool.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
+    error: PropTypes.string,
+    token: PropTypes.string,
+    onAuth: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = state => {
     return {
         loading: state.auth.loading,
@@ -72,7 +81,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onAuth: (email, password) => dispatch(auth(email, password)),
-        checkUserStatus: () => dispatch(authCheckState()),
     };
 };
 
