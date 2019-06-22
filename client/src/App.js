@@ -7,7 +7,7 @@ import ErrorBoundary from './hoc/ErrorBoundary/ErrorBoundary';
 // import AsyncComponent from './hoc/AsyncComponent/AsyncComponent';
 import Header from './containers/Header/Header';
 import Menu from './containers/Menu/Menu';
-import Home from './components/Home/Home';
+import Home from './containers/Home/Home';
 import { authCheckState } from './store/actions';
 import CategoryProducts from './containers/Products/CategoryProducts/CategoryProducts';
 import ProductDetail from './containers/Products/ProductDetail/ProductDetait';
