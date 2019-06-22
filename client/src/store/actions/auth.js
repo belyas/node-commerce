@@ -52,7 +52,6 @@ export const auth = (email, password) => {
                 dispatch(authFailure(data.error));
             }
         } catch (err) {
-            console.log(`Catch error: ${err.message}`);
             dispatch(authFailure('Invalid email or password'));
         }
     };
@@ -73,11 +72,8 @@ export const authCheckState = () => {
                 const res = await axios.post('/auth/checkstatus');
                 const data = await res.data;
 
-                console.log('[Response Check]: ', data);
-
                 dispatch(authSuccess(token, userId));
             } catch (err) {
-                console.log('[AuthCheckState::ResponseError]: ', err);
                 dispatch(authLoggedout());
             }
         }
