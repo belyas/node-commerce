@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import CategoryProductsComponent from '../../../components/Product/CategoryProducts/CategoryProducts';
 import { getCategoryProducts } from '../../../store/actions';
@@ -19,13 +20,23 @@ const CategoryProducts = ({
     };
 
     useEffect(() => {
-        if (!products) {
+        if (!products.length) {
             getProducts(categoryId);
         }
         // eslint-disable-next-line
     }, [categoryId]);
 
     return <CategoryProductsComponent {...childProps} />;
+};
+
+CategoryProducts.defaultProps = {
+    products: [],
+};
+
+CategoryProducts.propTypes = {
+    loading: PropTypes.bool.isRequired,
+    products: PropTypes.array.isRequired,
+    getProducts: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, { match }) => {
