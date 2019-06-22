@@ -1,7 +1,8 @@
 import React from 'react';
 import { Spinner, Button } from 'reactstrap';
+import PropTypes from 'prop-types';
 
-const ProductDetail = ({ product, product_id, loading }) => {
+const ProductDetail = ({ product, loading }) => {
     return (
         <div>
             {loading && <Spinner color="primary" />}
@@ -29,6 +30,17 @@ const ProductDetail = ({ product, product_id, loading }) => {
             )}
         </div>
     );
+};
+
+ProductDetail.propTypes = {
+    loading: PropTypes.bool.isRequired,
+    product: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        image: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        quantity: PropTypes.number.isRequired,
+    }).isRequired,
 };
 
 export default ProductDetail;
