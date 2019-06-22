@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
 import { getProducts } from '../../store/actions';
 import HomeComponent from '../../components/Home/Home';
@@ -15,6 +16,12 @@ const Home = ({ products, getProducts, loading }) => {
 
     const props = { loading, products };
     return <HomeComponent {...props} />;
+};
+
+Home.propTypes = {
+    loading: PropTypes.bool.isRequired,
+    products: PropTypes.array.isRequired,
+    getProducts: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => {
