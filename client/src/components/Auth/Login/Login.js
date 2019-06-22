@@ -1,15 +1,27 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { concatClasses } from '../../../utils/helpers';
 import styles from './Login.module.css';
 
 let hideForm = { display: 'none' };
 
-const Login = props => {
+const Login = ({
+    isAuthenticated,
+    isLogin,
+    errors,
+    email,
+    password,
+    error,
+    blurHandler,
+    changeHandler,
+    submitHanlder,
+    toggleLoginHandler,
+}) => {
     let redirectUrl = null;
 
-    if (props.isAuthenticated) {
+    if (isAuthenticated) {
         redirectUrl = <Redirect to="/" />;
     }
 
@@ -17,9 +29,7 @@ const Login = props => {
         <div className={concatClasses(styles.wrapper, styles.fadeInDown)}>
             {redirectUrl}
             <div className={concatClasses(styles.autoMg, styles.formContent)}>
-                <form
-                    onSubmit={props.submitHanlder}
-                    style={props.isLogin ? {} : hideForm}>
+                <form onSubmit={submitHanlder} style={isLogin ? {} : hideForm}>
                     <h2
                         className={concatClasses(
                             styles.fadeIn,
@@ -33,45 +43,36 @@ const Login = props => {
                         className={concatClasses(styles.fadeIn, styles.second)}
                         name="email"
                         placeholder="Email address"
-                        value={props.email}
-                        onChange={props.changeHandler}
-                        onBlur={props.blurHandler}
+                        value={email}
+                        onChange={changeHandler}
+                        onBlur={blurHandler}
                         required
                     />
-                    {props.errors && props.errors.email && (
-                        <p className="alert alert-danger">
-                            {props.errors.email}
-                        </p>
+                    {errors && errors.email && (
+                        <p className="alert alert-danger">{errors.email}</p>
                     )}
                     <input
                         type="password"
                         className={concatClasses(styles.fadeIn, styles.third)}
                         name="password"
                         placeholder="Password"
-                        value={props.password}
-                        onChange={props.changeHandler}
-                        onBlur={props.blurHandler}
+                        value={password}
+                        onChange={changeHandler}
+                        onBlur={blurHandler}
                         required
                     />
-                    {props.errors && props.errors.password && (
-                        <p className="alert alert-danger">
-                            {props.errors.password}
-                        </p>
+                    {errors && errors.password && (
+                        <p className="alert alert-danger">{errors.password}</p>
                     )}
                     <input
                         type="submit"
                         className={concatClasses(styles.fadeIn, styles.fourth)}
                         value="Log In"
                     />
-                    {props.error && (
-                        <p className="alert alert-danger">{props.error}</p>
-                    )}
+                    {error && <p className="alert alert-danger">{error}</p>}
                 </form>
 
-                <form
-                    action="#"
-                    method="POST"
-                    style={props.isLogin ? hideForm : {}}>
+                <form action="#" method="POST" style={isLogin ? hideForm : {}}>
                     <h2
                         className={concatClasses(
                             styles.fadeIn,
@@ -122,8 +123,8 @@ const Login = props => {
                             styles.underlineHover,
                             styles.switchSignup
                         )}
-                        onClick={props.toggleLoginHandler}
-                        style={props.isLogin ? {} : hideForm}>
+                        onClick={toggleLoginHandler}
+                        style={isLogin ? {} : hideForm}>
                         Don't have an account yet? <b>Signup</b>
                     </a>
                     <a
@@ -132,14 +133,27 @@ const Login = props => {
                             styles.underlineHover,
                             styles.switchSignin
                         )}
-                        onClick={props.toggleLoginHandler}
-                        style={props.isLogin ? hideForm : {}}>
+                        onClick={toggleLoginHandler}
+                        style={isLogin ? hideForm : {}}>
                         Already registered? <b>Loign</b>
                     </a>
                 </div>
             </div>
         </div>
     );
+};
+
+Login.propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
+    isLogin: PropTypes.bool.isRequired,
+    errors: PropTypes.array,
+    email: PropTypes.string,
+    password: PropTypes.string,
+    error: PropTypes.string,
+    blurHandler: PropTypes.func.isRequired,
+    changeHandler: PropTypes.func.isRequired,
+    submitHanlder: PropTypes.func.isRequired,
+    toggleLoginHandler: PropTypes.func.isRequired,
 };
 
 export default Login;
