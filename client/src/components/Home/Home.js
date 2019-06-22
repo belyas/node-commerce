@@ -11,7 +11,7 @@ const Home = ({ loading, products }) => {
             {products &&
                 products.map(product => {
                     return (
-                        <Product key={product._id} product={product} size="4" />
+                        <Product key={product._id} product={product} size={4} />
                     );
                 })}
         </Row>
