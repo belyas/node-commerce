@@ -9,6 +9,7 @@ import {
     Col,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const ProductCard = ({ size, product }) => {
     let getCardSize = size || 4;
@@ -32,6 +33,16 @@ const ProductCard = ({ size, product }) => {
             </Card>
         </Col>
     );
+};
+
+ProductCard.propTypes = {
+    size: PropTypes.number,
+    product: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        image: PropTypes.string.isRequired,
+        _id: PropTypes.string.isRequired,
+    }),
 };
 
 export default ProductCard;
