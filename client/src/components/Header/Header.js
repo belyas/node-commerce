@@ -1,13 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const Header = ({ isAuthenticated }) => {
-    let displayLogin = true;
-
-    if (isAuthenticated) {
-        displayLogin = false;
-    }
-
     return (
         <header>
             <div className="navbar navbar-expand-md navbar-dark bg-dark">
@@ -16,14 +11,14 @@ const Header = ({ isAuthenticated }) => {
                 </NavLink>
 
                 <ul className="nav ml-auto navbar-nav">
-                    {displayLogin && (
+                    {!isAuthenticated && (
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/login">
                                 Login
                             </NavLink>
                         </li>
                     )}
-                    {!displayLogin && (
+                    {isAuthenticated && (
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/logout">
                                 Logout
@@ -34,6 +29,10 @@ const Header = ({ isAuthenticated }) => {
             </div>
         </header>
     );
+};
+
+Header.propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
 };
 
 export default Header;
