@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Spinner } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 const Menu = ({ loading, categories }) => {
     return (
@@ -23,6 +24,11 @@ const Menu = ({ loading, categories }) => {
             </ul>
         </div>
     );
+};
+
+Menu.propsTypes = {
+    loading: PropTypes.bool.isRequired,
+    categories: PropTypes.array.isRequired,
 };
 
 export default Menu;
