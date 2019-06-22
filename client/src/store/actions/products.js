@@ -6,6 +6,7 @@ import {
     PRODUCTS_FAIL,
     CATEGORY_PRODUCTS_FETCHED,
     PRODUCT_FETCHED,
+    PRODUCT_FETCH_REQUESTED,
 } from './actionTypes';
 
 export const fetchingProducts = () => ({
@@ -32,20 +33,25 @@ export const fetchedProduct = (product, product_id) => ({
     payload: { product, product_id },
 });
 
-export const getProducts = () => {
-    return async dispatch => {
-        dispatch(fetchingProducts());
+export const getProducts = () => ({
+    type: PRODUCT_FETCH_REQUESTED,
+});
 
-        try {
-            const res = await axios.get('/products');
-            const data = await res.data;
+// Redux thunk usage
+// export const getProducts = () => {
+//     return async dispatch => {
+//         dispatch(fetchingProducts());
 
-            dispatch(fetchedProducts(data.data));
-        } catch (err) {
-            dispatch(failedFetchingProducts(err.message));
-        }
-    };
-};
+//         try {
+//             const res = await axios.get('/products');
+//             const data = await res.data;
+
+//             dispatch(fetchedProducts(data.data));
+//         } catch (err) {
+//             dispatch(failedFetchingProducts(err.message));
+//         }
+//     };
+// };
 
 export const getCategoryProducts = category_id => {
     return async dispatch => {
