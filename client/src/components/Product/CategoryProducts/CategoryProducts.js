@@ -1,8 +1,10 @@
 import React from 'react';
 import { Row, Spinner } from 'reactstrap';
+import PropTypes from 'prop-types';
+
 import Product from '../ProductCard/ProductCard';
 
-const categoryProducts = ({ products, loading }) => {
+const CategoryProducts = ({ products, loading }) => {
     return (
         <Row id="products-list">
             {loading && <Spinner color="primary" />}
@@ -16,4 +18,9 @@ const categoryProducts = ({ products, loading }) => {
     );
 };
 
-export default categoryProducts;
+CategoryProducts.propTypes = {
+    loading: PropTypes.bool.isRequired,
+    products: PropTypes.array.isRequired,
+};
+
+export default CategoryProducts;
