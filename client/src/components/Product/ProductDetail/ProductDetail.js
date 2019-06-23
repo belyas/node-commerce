@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const ProductDetail = ({ product, loading }) => {
     return (
-        <div>
+        <>
             {loading && <Spinner color="primary" />}
             {!loading && product && (
                 <div id="product-details" className="col-md-12">
@@ -28,7 +28,7 @@ const ProductDetail = ({ product, loading }) => {
                     </div>
                 </div>
             )}
-        </div>
+        </>
     );
 };
 
