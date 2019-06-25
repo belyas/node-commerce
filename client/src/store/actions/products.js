@@ -1,5 +1,3 @@
-import axios from '../../axios';
-
 import {
     PRODUCTS_FETCHING,
     PRODUCTS_FETCHED,
