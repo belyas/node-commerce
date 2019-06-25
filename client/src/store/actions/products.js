@@ -7,6 +7,7 @@ import {
     CATEGORY_PRODUCTS_FETCHED,
     PRODUCT_FETCHED,
     PRODUCT_FETCH_REQUESTED,
+    CATEGORY_PRODUCTS_FETCH_REQUEST,
 } from './actionTypes';
 
 export const fetchingProducts = () => ({
@@ -53,20 +54,26 @@ export const getProducts = () => ({
 //     };
 // };
 
-export const getCategoryProducts = category_id => {
-    return async dispatch => {
-        dispatch(fetchingProducts());
+export const getCategoryProducts = category_id => ({
+    type: CATEGORY_PRODUCTS_FETCH_REQUEST,
+    payload: { category_id },
+});
 
-        try {
-            const res = await axios.get(`/products/category/${category_id}`);
-            const data = await res.data;
+// Redux thunk usage
+// export const getCategoryProducts = category_id => {
+//     return async dispatch => {
+//         dispatch(fetchingProducts());
 
-            dispatch(fetchedCategoryProducts(data.data, category_id));
-        } catch (err) {
-            dispatch(failedFetchingProducts(err.message));
-        }
-    };
-};
+//         try {
+//             const res = await axios.get(`/products/category/${category_id}`);
+//             const data = await res.data;
+
+//             dispatch(fetchedCategoryProducts(data.data, category_id));
+//         } catch (err) {
+//             dispatch(failedFetchingProducts(err.message));
+//         }
+//     };
+// };
 
 export const getProduct = product_id => {
     return async dispatch => {
