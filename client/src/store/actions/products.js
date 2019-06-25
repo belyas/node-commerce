@@ -5,9 +5,10 @@ import {
     PRODUCTS_FETCHED,
     PRODUCTS_FAIL,
     CATEGORY_PRODUCTS_FETCHED,
-    PRODUCT_FETCHED,
+    SINGLE_PRODUCT_FETCHED,
     PRODUCT_FETCH_REQUESTED,
     CATEGORY_PRODUCTS_FETCH_REQUEST,
+    SINGLE_PRODUCT_FETCH_REQUEST,
 } from './actionTypes';
 
 export const fetchingProducts = () => ({
@@ -29,8 +30,8 @@ export const fetchedCategoryProducts = (products, category_id) => ({
     payload: { products, category_id },
 });
 
-export const fetchedProduct = (product, product_id) => ({
-    type: PRODUCT_FETCHED,
+export const fetchedSingleProduct = (product, product_id) => ({
+    type: SINGLE_PRODUCT_FETCHED,
     payload: { product, product_id },
 });
 
@@ -75,17 +76,23 @@ export const getCategoryProducts = category_id => ({
 //     };
 // };
 
-export const getProduct = product_id => {
-    return async dispatch => {
-        dispatch(fetchingProducts());
+export const getProduct = product_id => ({
+    type: SINGLE_PRODUCT_FETCH_REQUEST,
+    payload: { product_id },
+});
 
-        try {
-            const res = await axios.get(`/products/${product_id}/product`);
-            const data = await res.data;
+// Redux thunk usage
+// export const getProduct = product_id => {
+//     return async dispatch => {
+//         dispatch(fetchingProducts());
 
-            dispatch(fetchedProduct(data, product_id));
-        } catch (err) {
-            dispatch(failedFetchingProducts(err.message));
-        }
-    };
-};
+//         try {
+//             const res = await axios.get(`/products/${product_id}/product`);
+//             const data = await res.data;
+
+//             dispatch(fetchedSingleProduct(data, product_id));
+//         } catch (err) {
+//             dispatch(failedFetchingProducts(err.message));
+//         }
+//     };
+// };

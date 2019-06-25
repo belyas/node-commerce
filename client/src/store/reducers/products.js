@@ -3,7 +3,7 @@ import {
     PRODUCTS_FETCHED,
     PRODUCTS_FETCHING,
     CATEGORY_PRODUCTS_FETCHED,
-    PRODUCT_FETCHED,
+    SINGLE_PRODUCT_FETCHED,
 } from '../actions/actionTypes';
 import { updateObject } from '../../utils/helpers';
 
@@ -44,7 +44,7 @@ const fetchedCategoryProducts = (state, action) => {
     });
 };
 
-const fetchedProduct = (state, action) => {
+const fetchedSingleProduct = (state, action) => {
     const { product_id, product } = action.payload;
 
     return updateObject(state, {
@@ -66,8 +66,8 @@ const reducer = (state = initialState, action) => {
             return fetchedProducts(state, action);
         case CATEGORY_PRODUCTS_FETCHED:
             return fetchedCategoryProducts(state, action);
-        case PRODUCT_FETCHED:
-            return fetchedProduct(state, action);
+        case SINGLE_PRODUCT_FETCHED:
+            return fetchedSingleProduct(state, action);
         default:
             return state;
     }
