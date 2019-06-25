@@ -5,12 +5,12 @@ const formatStringDate = date => {
 
     const initDate = new Date(date);
 
-    if (!initDate) {
+    if (!initDate || Number.isNaN(initDate.getDate())) {
         return false;
     }
 
     let getDate = initDate.getDate();
-    let getMonth = initDate.getMonth();
+    let getMonth = initDate.getMonth() + 1;
     const getYear = initDate.getFullYear();
     getDate = getDate > 10 ? getDate : '0' + getDate;
     getMonth = getMonth > 10 ? getMonth : '0' + getMonth;
