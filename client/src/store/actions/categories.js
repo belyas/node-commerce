@@ -4,6 +4,7 @@ import {
     CATEGORIES_FETCHING,
     CATEGORIES_FETCHED,
     CATEGORIES_FAIL,
+    CATEGORIES_FETCH_REQUEST,
 } from './actionTypes';
 
 export const fetchingCategories = () => {
@@ -30,17 +31,22 @@ export const fetchedCategories = categories => {
     };
 };
 
-export const fetchCategories = () => {
-    return async dispatch => {
-        dispatch(fetchingCategories());
+export const fetchCategories = () => ({
+    type: CATEGORIES_FETCH_REQUEST,
+});
 
-        try {
-            const res = await axios.get('/categories');
-            const data = await res.data;
+// Redux thunk usage
+// export const fetchCategories = () => {
+//     return async dispatch => {
+//         dispatch(fetchingCategories());
 
-            dispatch(fetchedCategories(data.data));
-        } catch (err) {
-            dispatch(categoriesFetchingFailed(err.message));
-        }
-    };
-};
+//         try {
+//             const res = await axios.get('/categories');
+//             const data = await res.data;
+
+//             dispatch(fetchedCategories(data.data));
+//         } catch (err) {
+//             dispatch(categoriesFetchingFailed(err.message));
+//         }
+//     };
+// };
