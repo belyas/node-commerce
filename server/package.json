@@ -6,7 +6,8 @@
     "description": "Node and React e-commerce project",
     "main": "index.js",
     "scripts": {
-        "test": "jest --watch tests",
+        "test": "jest --watch",
+        "test:coverage": "jest --coverage",
         "lint": "eslint ./",
         "start": "nodemon --exec babel-node index.js"
     },
