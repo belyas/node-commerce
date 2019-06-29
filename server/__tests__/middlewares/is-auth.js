@@ -34,14 +34,17 @@ describe('Auth middleware WEB', () => {
 });
 
 describe('Auth middleware API', () => {
-    const res = {
-        code_status: 200,
-        status: code => {
-            res.code_status = code;
-            return res;
-        },
-        json: obj => obj,
-    };
+    let res;
+    beforeEach(() => {
+        res = {
+            code_status: 200,
+            status: code => {
+                res.code_status = code;
+                return res;
+            },
+            json: obj => obj,
+        };
+    });
 
     it('should return not authenticated', () => {
         const req = {
