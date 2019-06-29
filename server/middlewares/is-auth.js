@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken');
 
-export default (req, res, next) => {
+export const hasUserSession = (req, res, next) => {
     if (!req.session.user) {
         return res.redirect('/auth/login');
     }
 
-    next();
+    return next();
 };
 
 export const isAuthenticatedApi = (req, res, next) => {
@@ -21,7 +21,6 @@ export const isAuthenticatedApi = (req, res, next) => {
     try {
         decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     } catch (err) {
-        console.log('[Decode token Err]: ', err.message);
         return res.status(401).json({ error: true });
     }
 
@@ -31,5 +30,5 @@ export const isAuthenticatedApi = (req, res, next) => {
 
     req.userId = decodedToken.userId;
 
-    next();
+    return next();
 };
