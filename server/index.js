@@ -14,7 +14,7 @@ import helmet from 'helmet';
 import {
     LocalsMiddleware,
     UploadMiddleware,
-    IsAuthMiddleware,
+    hasUserSession,
     isAuthenticatedApi,
 } from './middlewares';
 // Routes
@@ -76,16 +76,16 @@ app.use(LocalsMiddleware);
 // WEB
 app.use(HomeRoute);
 app.use('/auth', AuthRouter);
-app.use('/profile', IsAuthMiddleware, ProfileRouter);
+app.use('/profile', hasUserSession, ProfileRouter);
 app.use(
     '/categories',
-    IsAuthMiddleware,
+    hasUserSession,
     UploadMiddleware('categories').single('category_image'),
     CategoryRouter
 );
 app.use(
     '/products',
-    IsAuthMiddleware,
+    hasUserSession,
     UploadMiddleware('products').single('product_image'),
     ProductRouter
 );
