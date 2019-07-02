@@ -6,14 +6,14 @@ const validateLoginAuth = values => {
 
     // Email Errors
     if (!values.email) {
-        errors.email = 'Required Email';
+        errors.email = 'Email required';
     } else if (!isEmail(values.email)) {
         errors.email = 'Invalid email address';
     }
 
     // Password Errors
     if (!values.password) {
-        errors.password = 'Required Password';
+        errors.password = 'Password required';
     } else if (values.password.length < PASSWORD_MIN_CHARS) {
         errors.password = `Password must be at least ${PASSWORD_MIN_CHARS} characters`;
     }
@@ -21,4 +21,4 @@ const validateLoginAuth = values => {
     return errors;
 };
 
-export { validateLoginAuth };
+export { validateLoginAuth, isEmail, PASSWORD_MIN_CHARS };
