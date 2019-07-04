@@ -146,7 +146,7 @@ const Login = ({
 Login.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
     isLogin: PropTypes.bool.isRequired,
-    errors: PropTypes.array,
+    errors: PropTypes.object,
     email: PropTypes.string,
     password: PropTypes.string,
     error: PropTypes.string,
