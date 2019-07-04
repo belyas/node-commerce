@@ -18,4 +18,14 @@ describe('Helprs utils', () => {
 
         expect(classes).toEqual('class1 class3 class2');
     });
+
+    it('should return merged object', () => {
+        const newObj = { name: 'yassine belkaid', age: 31 };
+        const mergedObject = updateObject({ name: 'yassine', age: 30 }, newObj);
+        const emptyObject = updateObject({}, {});
+
+        expect(mergedObject).toEqual(newObj);
+        expect(emptyObject).toEqual({});
+        expect(updateObject()).toEqual({});
+    });
 });
