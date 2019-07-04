@@ -22,10 +22,7 @@ describe('Login authentication valid util', () => {
     });
 
     it('should return errors for empty values', () => {
-        const values = {
-            email: null,
-            password: null,
-        };
+        const values = {};
         const {
             email: emailError,
             password: passwordError,
