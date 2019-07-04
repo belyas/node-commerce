@@ -1,28 +1,49 @@
 import { setAuthToken } from '../../utils/api';
 
 describe('Api helper', () => {
+    let client;
+
     beforeEach(() => {
-        // values stored in tests will also be available in other tests unless you run
-        // localStorage.clear();
-        // // or directly reset the storage
-        // localStorage.__STORE__ = {};
-        // // or individually reset a mock used
-        // localStorage.setItem.mockClear();
-    });
-    it('should contains Authorization header with a bearer token', () => {
-        // localStorage.setItem('token', '123456');
-        console.log(Object.keys(localStorage));
-        const client = {
+        client = {
             defaults: {
                 headers: {
                     common: {
-                        Authorization: 'Bearer',
+                        Authorization: null,
                     },
                 },
             },
         };
-        const getToken = setAuthToken(client);
+    });
 
-        // expect(localStorage.__STORE__['token']).toBe('123456');
+    afterEach(() => {
+        localStorage.clear();
+    });
+
+    it('should contains Authorization header with a bearer token', () => {
+        localStorage.setItem('token', '123456');
+
+        const client = {
+            defaults: {
+                headers: {
+                    common: {
+                        Authorization: null,
+                    },
+                },
+            },
+        };
+        const response = setAuthToken(client);
+        const savedToen = localStorage.getItem('token');
+
+        expect(response.defaults.headers.common['Authorization']).toEqual(
+            'Bearer ' + savedToen
+        );
+    });
+
+    it('does not contain Authorization header', () => {
+        const response = setAuthToken(client);
+
+        expect(
+            response.defaults.headers.common['Authorization']
+        ).toBeUndefined();
     });
 });
