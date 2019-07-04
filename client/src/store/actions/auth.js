@@ -68,7 +68,7 @@ export const authCheckState = () => {
 
             // check server response
             try {
-                setAuthToken();
+                setAuthToken(axios);
                 await axios.post('/auth/checkstatus');
 
                 dispatch(authSuccess(token, userId));
