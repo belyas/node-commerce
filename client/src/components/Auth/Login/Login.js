@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { concatClasses } from '../../../utils/helpers';
 import styles from './Login.module.css';
+import LoginForm from '../LoginForm/LoginForm';
 
 let hideForm = { display: 'none' };
 
@@ -25,52 +26,21 @@ const Login = ({
         redirectUrl = <Redirect to="/" />;
     }
 
+    const loginFormProps = {
+        errors,
+        email,
+        password,
+        error,
+        blurHandler,
+        changeHandler,
+        submitHanlder,
+    };
+
     return (
         <div className={concatClasses(styles.wrapper, styles.fadeInDown)}>
             {redirectUrl}
             <div className={concatClasses(styles.autoMg, styles.formContent)}>
-                <form onSubmit={submitHanlder} style={isLogin ? {} : hideForm}>
-                    <h2
-                        className={concatClasses(
-                            styles.fadeIn,
-                            styles.first,
-                            styles.formTitle
-                        )}>
-                        Login
-                    </h2>
-                    <input
-                        type="text"
-                        className={concatClasses(styles.fadeIn, styles.second)}
-                        name="email"
-                        placeholder="Email address"
-                        value={email}
-                        onChange={changeHandler}
-                        onBlur={blurHandler}
-                        required
-                    />
-                    {errors && errors.email && (
-                        <p className="alert alert-danger">{errors.email}</p>
-                    )}
-                    <input
-                        type="password"
-                        className={concatClasses(styles.fadeIn, styles.third)}
-                        name="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={changeHandler}
-                        onBlur={blurHandler}
-                        required
-                    />
-                    {errors && errors.password && (
-                        <p className="alert alert-danger">{errors.password}</p>
-                    )}
-                    <input
-                        type="submit"
-                        className={concatClasses(styles.fadeIn, styles.fourth)}
-                        value="Log In"
-                    />
-                    {error && <p className="alert alert-danger">{error}</p>}
-                </form>
+                <LoginForm {...loginFormProps} />
 
                 <form action="#" method="POST" style={isLogin ? hideForm : {}}>
                     <h2
