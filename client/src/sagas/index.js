@@ -6,6 +6,7 @@ import {
     getSinlgeProductSaga,
 } from './products';
 import { getCategoriesSaga } from './categories';
+import { signupSaga } from './auth';
 
 export default function* rootSaga() {
     yield all([
@@ -14,5 +15,7 @@ export default function* rootSaga() {
         getSinlgeProductSaga(),
 
         getCategoriesSaga(),
+
+        signupSaga(),
     ]);
 }
