@@ -1,37 +1,26 @@
 import React from 'react';
-import {
-    Card,
-    CardImg,
-    CardBody,
-    CardTitle,
-    CardSubtitle,
-    Button,
-    Col,
-} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const ProductCard = ({ size, product }) => {
-    let getCardSize = size || 4;
+import classes from '../Product.module.css';
 
+const ProductCard = ({ product }) => {
     return (
-        <Col sm={getCardSize}>
-            <Card>
+        <div className={classes.ProductRow}>
+            <img
+                src={product.image}
+                alt={product.name}
+                className={classes.ProductRowImg}
+            />
+
+            <div className={classes.ProductRowBottom}>
                 <Link to={`/product/${product._id}`}>
-                    <CardImg
-                        top
-                        width="100%"
-                        src={product.image}
-                        alt={product.name}
-                    />
+                    <span className={classes.truncate}>{product.name}</span>
                 </Link>
-                <CardBody>
-                    <CardTitle>{product.name}</CardTitle>
-                    <CardSubtitle>${product.price}</CardSubtitle>
-                    <Button>Add to cart</Button>
-                </CardBody>
-            </Card>
-        </Col>
+                <span>${product.price}</span>
+            </div>
+            <span className={classes.ProductRowBtn}>Add to cart</span>
+        </div>
     );
 };
 

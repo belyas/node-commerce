@@ -1,20 +1,19 @@
 import React from 'react';
-import { Row, Spinner } from 'reactstrap';
+import { Spinner } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 import Product from '../Product/ProductCard/ProductCard';
+import classes from '../Product/Product.module.css';
 
 const Home = ({ loading, products }) => {
     return (
-        <Row id="products-list">
+        <div className={classes.products__list}>
             {loading && <Spinner color="primary" />}
             {products &&
                 products.map(product => {
-                    return (
-                        <Product key={product._id} product={product} size={4} />
-                    );
+                    return <Product key={product._id} product={product} />;
                 })}
-        </Row>
+        </div>
     );
 };
 
