@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 
-import Login from '../../../../components/Auth/Login/Login';
+import Auth from '../../../../components/Auth/Auth';
 import LoginForm from '../../../../components/Auth/LoginForm/LoginForm';
 import SignupForm from '../../../../components/Auth/SignupForm/SignupForm';
 
-describe('Login component', () => {
+describe('Auth component and sub components', () => {
     it('should verify the right rendered components and dom elements', () => {
         const props = {
             isAuthenticated: false,
@@ -20,7 +20,7 @@ describe('Login component', () => {
             toggleLoginHandler: () => ({}),
             signupSubmitHanlder: () => ({}),
         };
-        const wrapper = shallow(<Login {...props} />);
+        const wrapper = shallow(<Auth {...props} />);
         const loginForm = wrapper.find('LoginForm');
         const signupForm = wrapper.find('SignupForm');
 
@@ -59,7 +59,7 @@ describe('Login component', () => {
             toggleLoginHandler: () => ({}),
             signupSubmitHanlder: () => ({}),
         };
-        const wrapper = shallow(<Login {...props} />);
+        const wrapper = shallow(<Auth {...props} />);
 
         // this is basically complaining about using Redirect in Login component
         expect(() => wrapper.html()).toThrow();
