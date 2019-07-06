@@ -6,9 +6,10 @@ const initialState = {
     userId: null,
     error: null,
     loading: false,
+    signupSuccess: false,
 };
 
-const authStart = (state, action) => {
+const authStart = state => {
     return updateObject(state, {
         error: null,
         loading: true,
@@ -38,6 +39,22 @@ const authLoggedout = (state, action) => {
     });
 };
 
+const signupStartAuth = state => {
+    return updateObject(state, { loading: true });
+};
+
+const signupFailAuth = (state, action) => {
+    return updateObject(state, { error: action.payload.error, loading: false });
+};
+
+const signupSuccessAuth = state => {
+    return updateObject(state, {
+        loading: false,
+        error: null,
+        signupSuccess: true,
+    });
+};
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.AUTH_START:
@@ -48,6 +65,12 @@ const reducer = (state = initialState, action) => {
             return authFail(state, action);
         case actionTypes.AUTH_LOGOUT:
             return authLoggedout(state, action);
+        case actionTypes.AUTH_SIGNUP_START:
+            return signupStartAuth(state);
+        case actionTypes.AUTH_SIGNUP_FAIL:
+            return signupFailAuth(state, action);
+        case actionTypes.AUTH_SIGNUP_SUCCESS:
+            return signupSuccessAuth(state);
         default:
             return state;
     }
