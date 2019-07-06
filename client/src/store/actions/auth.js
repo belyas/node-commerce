@@ -78,3 +78,21 @@ export const authCheckState = () => {
         }
     };
 };
+
+export const signupAuthRequest = (firstname, lastname, email, password) => ({
+    type: actionTypes.AUTH_SIGNUP_REQUEST,
+    payload: { firstname, lastname, email, password },
+});
+
+export const signupAuthStart = () => ({
+    type: actionTypes.AUTH_SIGNUP_START,
+});
+
+export const signupAuthFail = error => ({
+    type: actionTypes.AUTH_SIGNUP_FAIL,
+    payload: { error },
+});
+
+export const signupAuthSuccess = () => ({
+    type: actionTypes.AUTH_SIGNUP_SUCCESS,
+});

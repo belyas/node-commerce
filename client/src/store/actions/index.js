@@ -5,6 +5,10 @@ export {
     authFailure,
     authLoggedout,
     auth,
+    signupAuthFail,
+    signupAuthRequest,
+    signupAuthStart,
+    signupAuthSuccess,
 } from './auth';
 export {
     categoriesFetchingFailed,
