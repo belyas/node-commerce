@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { concatClasses } from '../../../utils/helpers';
-import styles from '../Login/Login.module.css';
+import styles from '../Auth.module.css';
 
 const LoginForm = ({
     isLogin,
@@ -12,11 +12,11 @@ const LoginForm = ({
     error,
     blurHandler,
     changeHandler,
-    submitHanlder,
+    loginSubmitHanlder,
     hideForm,
 }) => {
     return (
-        <form onSubmit={submitHanlder} style={isLogin ? {} : hideForm}>
+        <form onSubmit={loginSubmitHanlder} style={isLogin ? {} : hideForm}>
             <h2
                 className={concatClasses(
                     styles.fadeIn,
@@ -35,8 +35,8 @@ const LoginForm = ({
                 onBlur={blurHandler}
                 required
             />
-            {errors && errors.email && (
-                <p className="alert alert-danger">{errors.email}</p>
+            {errors.email && (
+                <p className="alert email-error alert-danger">{errors.email}</p>
             )}
             <input
                 type="password"
@@ -48,8 +48,10 @@ const LoginForm = ({
                 onBlur={blurHandler}
                 required
             />
-            {errors && errors.password && (
-                <p className="alert alert-danger">{errors.password}</p>
+            {errors.password && (
+                <p className="alert password-error alert-danger">
+                    {errors.password}
+                </p>
             )}
             <input
                 type="submit"
@@ -63,13 +65,13 @@ const LoginForm = ({
 
 LoginForm.propTypes = {
     isLogin: PropTypes.bool.isRequired,
-    errors: PropTypes.object,
+    errors: PropTypes.object.isRequired,
     email: PropTypes.string,
     password: PropTypes.string,
     error: PropTypes.string,
     blurHandler: PropTypes.func.isRequired,
     changeHandler: PropTypes.func.isRequired,
-    submitHanlder: PropTypes.func.isRequired,
+    loginSubmitHanlder: PropTypes.func.isRequired,
 };
 
 export default LoginForm;
