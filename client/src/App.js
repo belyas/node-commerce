@@ -9,7 +9,7 @@ import Menu from './containers/Menu/Menu';
 import { authCheckState } from './store/actions';
 
 const Logout = lazy(() => import('./containers/Auth/Logout'));
-const Login = lazy(() => import('./containers/Auth/Login'));
+const Auth = lazy(() => import('./containers/Auth/Auth'));
 const Home = lazy(() => import('./containers/Home/Home'));
 const CategoryProducts = lazy(() =>
     import('./containers/Products/CategoryProducts/CategoryProducts')
@@ -40,7 +40,7 @@ class App extends Component {
                                 path="/product/:product_id"
                                 component={ProductDetail}
                             />
-                            <Route path="/login" component={Login} />
+                            <Route path="/login" component={Auth} />
                             <Route path="/logout" component={Logout} />
                         </Switch>
                     </Suspense>
