@@ -26,3 +26,4 @@ export {
     fetchedCategoryProducts,
     fetchedSingleProduct,
 } from './products';
+export { addToCart } from './cart';
