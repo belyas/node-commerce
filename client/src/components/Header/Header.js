@@ -2,7 +2,10 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const Header = ({ isAuthenticated }) => {
+import { concatClasses } from '../../utils/helpers';
+import classes from './Header.module.css';
+
+const Header = ({ isAuthenticated, cart }) => {
     return (
         <header>
             <div className="navbar navbar-expand-md navbar-dark bg-dark">
@@ -25,6 +28,24 @@ const Header = ({ isAuthenticated }) => {
                             </NavLink>
                         </li>
                     )}
+                    <li className="nav-item">
+                        <NavLink
+                            className={concatClasses(
+                                'nav-link',
+                                classes.headerCart
+                            )}
+                            to="/cart">
+                            <span className={classes.cartTotlaItems}>
+                                {cart.totalItems}
+                            </span>
+                            <i
+                                className={concatClasses(
+                                    'fa',
+                                    'fa-shopping-cart ',
+                                    classes.cartIcon
+                                )}></i>
+                        </NavLink>
+                    </li>
                 </ul>
             </div>
         </header>
@@ -33,6 +54,7 @@ const Header = ({ isAuthenticated }) => {
 
 Header.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
+    cart: PropTypes.object.isRequired,
 };
 
 export default Header;
