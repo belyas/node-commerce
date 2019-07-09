@@ -7,11 +7,13 @@ import {
     updateObject,
     updateCart,
     getCartTotalPrice,
+    getCartTotalItems,
 } from '../../utils/helpers';
 
 const initialState = {
     items: [],
     totalPrice: 0,
+    totalItems: 0,
 };
 
 const addToCart = (state, action) => {
@@ -20,6 +22,7 @@ const addToCart = (state, action) => {
     return updateObject(state, {
         items,
         totalPrice: getCartTotalPrice(items),
+        totalItems: getCartTotalItems(items),
     });
 };
 
