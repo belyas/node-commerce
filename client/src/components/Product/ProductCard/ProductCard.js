@@ -14,8 +14,10 @@ const ProductCard = ({ product }) => {
             />
 
             <div className={classes.ProductRowBottom}>
-                <Link to={`/product/${product._id}`}>
-                    <span className={classes.truncate}>{product.name}</span>
+                <Link
+                    to={`/product/${product._id}`}
+                    className={classes.truncate}>
+                    <span>{product.name}</span>
                 </Link>
                 <span>${product.price}</span>
             </div>
