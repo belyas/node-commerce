@@ -35,11 +35,11 @@ const ProductDetail = ({ product, loading }) => {
 ProductDetail.propTypes = {
     loading: PropTypes.bool.isRequired,
     product: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        image: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        quantity: PropTypes.number.isRequired,
+        name: PropTypes.string,
+        image: PropTypes.string,
+        description: PropTypes.string,
+        price: PropTypes.number,
+        quantity: PropTypes.number,
     }).isRequired,
 };
 

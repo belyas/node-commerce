@@ -18,7 +18,7 @@ const ProductDetail = ({ match, getProduct, product, loading }) => {
         // eslint-disable-next-line
     }, [product_id]);
 
-    return !isProductEmpty && <ProductDetailComponent {..._props} />;
+    return <ProductDetailComponent {..._props} />;
 };
 
 ProductDetail.defaultProps = {
