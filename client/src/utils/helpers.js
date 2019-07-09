@@ -40,4 +40,14 @@ const getCartTotalPrice = items => {
     return items.reduce((acc, item) => (acc += item.price * item.qty), 0);
 };
 
-export { concatClasses, updateObject, updateCart, getCartTotalPrice };
+const getCartTotalItems = items => {
+    return items.reduce((acc, item) => (acc += item.qty), 0);
+};
+
+export {
+    concatClasses,
+    updateObject,
+    updateCart,
+    getCartTotalPrice,
+    getCartTotalItems,
+};
