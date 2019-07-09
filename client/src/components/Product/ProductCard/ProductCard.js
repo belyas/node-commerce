@@ -27,7 +27,6 @@ const ProductCard = ({ product }) => {
 };
 
 ProductCard.propTypes = {
-    size: PropTypes.number,
     product: PropTypes.shape({
         name: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
