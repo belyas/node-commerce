@@ -1,8 +1,11 @@
 import React from 'react';
 import { Spinner, Button } from 'reactstrap';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-const ProductDetail = ({ product, loading }) => {
+import { addToCart } from '../../../store/actions';
+
+const ProductDetail = ({ product, loading, setCartItem }) => {
     return (
         <>
             {loading && <Spinner color="primary" />}
@@ -23,7 +26,12 @@ const ProductDetail = ({ product, loading }) => {
                         <p className="product-desc">{product.description}</p>
                         <p className="product-price">${product.price}</p>
                         <div id="add-to-cart">
-                            <Button color="info"> Add to cart</Button>
+                            <Button
+                                color="info"
+                                onClick={() => setCartItem(product)}>
+                                {' '}
+                                Add to cart
+                            </Button>
                         </div>
                     </div>
                 </div>
@@ -41,6 +49,19 @@ ProductDetail.propTypes = {
         price: PropTypes.number,
         quantity: PropTypes.number,
     }).isRequired,
+    setCartItem: PropTypes.func.isRequired,
 };
 
-export default ProductDetail;
+const mapDispatchToProps = dispatch => {
+    return {
+        setCartItem: product => {
+            product.qty = 1; // hack qty for now
+            dispatch(addToCart(product));
+        },
+    };
+};
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(ProductDetail);

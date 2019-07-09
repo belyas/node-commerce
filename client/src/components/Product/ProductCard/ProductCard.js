@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import classes from '../Product.module.css';
+import { addToCart } from '../../../store/actions';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, setCartItem }) => {
     return (
         <div className={classes.ProductRow}>
             <img
@@ -21,7 +23,11 @@ const ProductCard = ({ product }) => {
                 </Link>
                 <span>${product.price}</span>
             </div>
-            <span className={classes.ProductRowBtn}>Add to cart</span>
+            <span
+                className={classes.ProductRowBtn}
+                onClick={() => setCartItem(product)}>
+                Add to cart
+            </span>
         </div>
     );
 };
@@ -33,6 +39,19 @@ ProductCard.propTypes = {
         image: PropTypes.string.isRequired,
         _id: PropTypes.string.isRequired,
     }),
+    setCartItem: PropTypes.func.isRequired,
 };
 
-export default ProductCard;
+const mapDispatchToProps = dispatch => {
+    return {
+        setCartItem: product => {
+            product.qty = 1; // hack qty for now
+            dispatch(addToCart(product));
+        },
+    };
+};
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(ProductCard);
