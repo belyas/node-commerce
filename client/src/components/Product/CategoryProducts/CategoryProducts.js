@@ -11,9 +11,7 @@ const CategoryProducts = ({ products, loading }) => {
             {loading && <Spinner color="primary" />}
             {products &&
                 products.map(product => {
-                    return (
-                        <Product key={product._id} product={product} size={4} />
-                    );
+                    return <Product key={product._id} product={product} />;
                 })}
         </div>
     );
