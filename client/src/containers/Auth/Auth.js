@@ -97,7 +97,6 @@ class Auth extends Component {
 
 Auth.propTypes = {
     loading: PropTypes.bool.isRequired,
-    isAuthenticated: PropTypes.bool.isRequired,
     error: PropTypes.string,
     token: PropTypes.string,
     onAuth: PropTypes.func.isRequired,
@@ -108,7 +107,6 @@ const mapStateToProps = state => {
     return {
         loading: state.auth.loading,
         error: state.auth.error,
-        isAuthenticated: state.auth.token !== null,
         token: state.auth.token,
         signupSuccess: state.auth.signupSuccess,
     };

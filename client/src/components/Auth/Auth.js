@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { concatClasses } from '../../utils/helpers';
@@ -10,7 +9,6 @@ import SignupForm from './SignupForm/SignupForm';
 let hideForm = { display: 'none' };
 
 const Auth = ({
-    isAuthenticated,
     isLogin,
     errors,
     email,
@@ -26,12 +24,6 @@ const Auth = ({
     loading,
     signupSuccess,
 }) => {
-    let redirectUrl = null;
-
-    if (isAuthenticated) {
-        redirectUrl = <Redirect to="/" />;
-    }
-
     if (signupSuccess) {
         isLogin = true;
     }
@@ -64,7 +56,6 @@ const Auth = ({
 
     return (
         <div className={concatClasses(styles.wrapper, styles.fadeInDown)}>
-            {redirectUrl}
             <div className={concatClasses(styles.autoMg, styles.formContent)}>
                 <LoginForm {...loginFormProps} />
 
@@ -98,7 +89,6 @@ const Auth = ({
 };
 
 Auth.propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired,
     isLogin: PropTypes.bool.isRequired,
     errors: PropTypes.object,
     email: PropTypes.string,

@@ -1,5 +1,5 @@
 import React, { Component, Suspense, lazy } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -40,7 +40,16 @@ class App extends Component {
                                 path="/product/:product_id"
                                 component={ProductDetail}
                             />
-                            <Route path="/login" component={Auth} />
+                            <Route
+                                path="/login"
+                                render={() =>
+                                    this.props.isAuthenticated ? (
+                                        <Redirect to="/" />
+                                    ) : (
+                                        <Auth />
+                                    )
+                                }
+                            />
                             <Route path="/logout" component={Logout} />
                         </Switch>
                     </Suspense>
