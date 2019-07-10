@@ -12,14 +12,16 @@ const PRODUCT_ROUTE_ADD = PRODUCT_ROUTE_MAIN_URL + '/add';
 const PRODUCT_ROUTE_EDIT = PRODUCT_ROUTE_MAIN_URL + '/edit';
 
 export default class Product {
-    static async list (req, res) {
+    static async list(req, res) {
         try {
-            const products = await ProductModel.find({}).sort([['createdAt', -1]]);
+            const products = await ProductModel.find({}).sort([
+                ['createdAt', -1],
+            ]);
 
             res.render(ltrim(PRODUCT_ROUTE_LIST), {
                 title: 'Products list',
                 currentPath: req.baseUrl,
-                products
+                products,
             });
         } catch (err) {
             req.flash('error', err);
@@ -27,17 +29,19 @@ export default class Product {
         }
     }
 
-    static async add (req, res) {
-        const categories = await CategoryModel.find({}).sort([['createdAt', -1]]);
+    static async add(req, res) {
+        const categories = await CategoryModel.find({}).sort([
+            ['createdAt', -1],
+        ]);
 
         res.render(ltrim(PRODUCT_ROUTE_ADD), {
             title: 'Add a product',
             currentPath: req.baseUrl,
-            categories
+            categories,
         });
     }
 
-    static async store (req, res) {
+    static async store(req, res) {
         const { name, description, price, quantity, category } = req.body;
         const image = req.file;
         let hasError = false;
@@ -48,7 +52,7 @@ export default class Product {
         }
 
         if (validator.isEmpty(name) || !name) {
-            req.flash('error', 'Product\'s name is mandatory.');
+            req.flash('error', "Product's name is mandatory.");
             hasError = true;
         }
 
@@ -58,17 +62,17 @@ export default class Product {
         }
 
         if (validator.isEmpty(description) || !description) {
-            req.flash('error', 'Product\'s description is mandatory.');
+            req.flash('error', "Product's description is mandatory.");
             hasError = true;
         }
 
         if (!validator.isFloat(price)) {
-            req.flash('error', 'Product\'s price is mandatory.');
+            req.flash('error', "Product's price is mandatory.");
             hasError = true;
         }
 
         if (!validator.isNumeric(quantity)) {
-            req.flash('error', 'Product\'s quantity is mandatory.');
+            req.flash('error', "Product's quantity is mandatory.");
             hasError = true;
         }
 
@@ -84,7 +88,7 @@ export default class Product {
                 price: price,
                 quantity: +quantity,
                 image: validator.escape(image.filename),
-                category
+                category,
             });
 
             const savedProduct = await productObj.save();
@@ -99,7 +103,10 @@ export default class Product {
         } catch (err) {
             // remove any failed product'image
             if (image) {
-                fs.unlinkSync(path.join(__dirname, '../public/images/products/') + image.filename);
+                fs.unlinkSync(
+                    path.join(__dirname, '../public/images/products/') +
+                        image.filename
+                );
             }
 
             req.flash('error', typeof err === Error ? err.message : err);
@@ -107,18 +114,20 @@ export default class Product {
         }
     }
 
-    static async edit (req, res) {
+    static async edit(req, res) {
         const productId = validator.escape(req.params.id);
 
         try {
             const product = await ProductModel.findById(productId);
-            const categories = await CategoryModel.find({}).sort([['createdAt', -1]]);
+            const categories = await CategoryModel.find({}).sort([
+                ['createdAt', -1],
+            ]);
 
             res.render(ltrim(PRODUCT_ROUTE_EDIT), {
                 title: 'Edit product',
                 currentPath: req.baseUrl,
                 product,
-                categories
+                categories,
             });
         } catch (err) {
             req.flash('error', err);
@@ -126,7 +135,7 @@ export default class Product {
         }
     }
 
-    static async update (req, res) {
+    static async update(req, res) {
         const { id, name, description, price, quantity, category } = req.body;
         const image = req.file;
         let hasError = false;
@@ -142,7 +151,7 @@ export default class Product {
         }
 
         if (validator.isEmpty(description) || !description) {
-            req.flash('error', 'Product\'s description is mandatory.');
+            req.flash('error', "Product's description is mandatory.");
             hasError = true;
         }
 
@@ -152,12 +161,12 @@ export default class Product {
         }
 
         if (!validator.isFloat(price)) {
-            req.flash('error', 'Product\'s price is mandatory.');
+            req.flash('error', "Product's price is mandatory.");
             hasError = true;
         }
 
         if (!validator.isNumeric(quantity)) {
-            req.flash('error', 'Product\'s quantity is mandatory.');
+            req.flash('error', "Product's quantity is mandatory.");
             hasError = true;
         }
 
@@ -174,7 +183,7 @@ export default class Product {
                 description: validator.escape(description.trim().toLowerCase()),
                 price: price,
                 quantity: +quantity,
-                category
+                category,
             };
             const oldImage = product.image;
             let hasImage = false;
@@ -184,12 +193,18 @@ export default class Product {
                 hasImage = true;
             }
 
-            const productUpdated = await ProductModel.updateOne({ _id: sanitizedId }, { $set: updatedProduct });
+            const productUpdated = await ProductModel.updateOne(
+                { _id: sanitizedId },
+                { $set: updatedProduct }
+            );
 
             if (productUpdated.n) {
                 // check if the image has been uploaded, then remove the old one
                 if (hasImage) {
-                    fs.unlinkSync(path.join(__dirname, '../public/images/products/') + oldImage);
+                    fs.unlinkSync(
+                        path.join(__dirname, '../../public/images/products/') +
+                            oldImage
+                    );
                 }
 
                 req.flash('success', 'Product has been successfully updated.');
@@ -199,17 +214,12 @@ export default class Product {
             req.flash('error', 'Product has not been updated.');
             res.redirect(PRODUCT_ROUTE_MAIN_URL);
         } catch (err) {
-            // remove any failed product'image
-            if (image) {
-                fs.unlinkSync(path.join(__dirname, '../public/images/products/') + image.filename);
-            }
-
-            req.flash('error', err);
+            req.flash('error', err.message);
             res.redirect(PRODUCT_ROUTE_EDIT + '/' + id);
         }
     }
 
-    static async delete (req, res) {
+    static async delete(req, res) {
         const { id } = req.body;
 
         if (!id) {
@@ -219,10 +229,15 @@ export default class Product {
 
         try {
             let sanitizedId = validator.escape(id);
-            const deletedProduct = await ProductModel.findByIdAndDelete(sanitizedId);
+            const deletedProduct = await ProductModel.findByIdAndDelete(
+                sanitizedId
+            );
 
             if (deletedProduct) {
-                fs.unlinkSync(path.join(__dirname, '../public/images/products/') + deletedProduct.image);
+                fs.unlinkSync(
+                    path.join(__dirname, '../../public/images/products/') +
+                        deletedProduct.image
+                );
             }
 
             req.flash('success', 'Product has been successfully deleted.');
