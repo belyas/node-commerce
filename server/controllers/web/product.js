@@ -104,7 +104,7 @@ export default class Product {
             // remove any failed product'image
             if (image) {
                 fs.unlinkSync(
-                    path.join(__dirname, '../public/images/products/') +
+                    path.join(__dirname, '../../public/images/products/') +
                         image.filename
                 );
             }
