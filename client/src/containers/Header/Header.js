@@ -5,7 +5,6 @@ import Header from '../../components/Header/Header';
 const mapStateToProps = state => {
     return {
         isAuthenticated: state.auth.token !== null,
-        cart: state.cart,
     };
 };
 
