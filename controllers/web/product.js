@@ -201,10 +201,21 @@ export default class Product {
             if (productUpdated.n) {
                 // check if the image has been uploaded, then remove the old one
                 if (hasImage) {
-                    fs.unlinkSync(
-                        path.join(__dirname, '../../public/images/products/') +
-                            oldImage
-                    );
+                    if (
+                        fs.existsSync(
+                            path.join(
+                                __dirname,
+                                `../../public/images/products/${oldImage}`
+                            )
+                        )
+                    ) {
+                        fs.unlinkSync(
+                            path.join(
+                                __dirname,
+                                `../../public/images/products/${oldImage}`
+                            )
+                        );
+                    }
                 }
 
                 req.flash('success', 'Product has been successfully updated.');
