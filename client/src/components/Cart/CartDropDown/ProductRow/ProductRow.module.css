@@ -8,8 +8,6 @@
     width: 70px;
     height: 70px;
 }
-.ProductRowMain {
-}
 .ProductRowName {
     font-size: 15px;
     overflow: hidden;
@@ -21,6 +19,6 @@
 }
 .ProductRowRemoveBtn {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     cursor: pointer;
 }
