@@ -1,0 +1,31 @@
+<%- include('../_partials/header.ejs') %>
+<%- include('../_partials/navigation.ejs') %>
+
+<h1 class="text-center">Edit category: <%= pipe(capitalize, decodeStr)(category.name) %></h1>
+
+<div id="category-form" class="wrapper fadeInDown">
+    <div id="formContent" class="auto-mg">
+        <form action="/categories/update?_csrf=<%= csrfToken %>&_method=PUT" method="POST" 
+            id="edit-category-form" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="<%= category._id %>" />
+            <div class="form-group mb-3 mt-3">
+                <input type="text" class="form-control" id="category-name"  
+                    name="name" placeholder="Name" value="<%= decodeStr(category.name) %>" />
+            </div>
+            <div class="input-group mb-3 file-upload">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Upload</span>
+                </div>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="category_image" id="category_image">
+                    <label class="custom-file-label text-left" for="category_image">Choose file</label>
+                </div>
+                <img src="/images/categories/<%= category.image %>" alt="<%= decodeStr(category.name) %>" class="w-100 h-100 mt-3" />
+            </div>
+            
+            <input type="submit" class="fadeIn fourth" value="Update" />
+        </form>
+    </div>
+</div>
+    
+<%- include('../_partials/footer.ejs') %>

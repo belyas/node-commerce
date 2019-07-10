@@ -1,0 +1,53 @@
+<%- include('../_partials/header.ejs') %>
+<%- include('../_partials/navigation.ejs') %>
+    <h1 class="text-center">Products list</h1>
+
+    <a href="/products/add" class="btn btn-primary mb-1 float-right">Add new</a>
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Created</th>
+            <th scope="col">Updated</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+            <%
+              if (products.length) {
+                let i = 1;
+                for (let product of products) {
+            %>
+            <tr>
+                <th scope="row"><%= i %></th>
+                <td><%= pipe(capitalize, decodeStr)(product.name) %></td>
+                <td><%= product.price %></td>
+                <td><%= product.quantity %></td>
+                <td><%= formatStringDate(product.createdAt) %></td>
+                <td><%= formatStringDate(product.updatedAt) %></td>
+                <td>
+                  <a href="/products/edit/<%= product._id %>">
+                      <i class="fas fa-edit"></i>
+                  </a>
+                  <a href="#" class="removeElement" data-form-id="<%= product._id %>">
+                    <i class="fas fa-trash"></i>
+                  </a>
+                  <form action="/products/delete?_method=DELETE" method="post"
+                    id="remove-form-<%= product._id %>">
+                    <input type="hidden" name="id" value="<%= product._id %>" />
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                  </form>
+                </td>
+            </tr>
+            <% i++; } } else { %>
+            <tr>
+              <td colspan="7" class="text-center">No product found!</td>
+            </tr>
+            <% } %>
+        </tbody>
+      </table>
+    
+<%- include('../_partials/footer.ejs') %>

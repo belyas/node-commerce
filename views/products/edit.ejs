@@ -1,0 +1,59 @@
+<%- include('../_partials/header.ejs') %>
+<%- include('../_partials/navigation.ejs') %>
+
+<h1 class="text-center">Edit product: <%= pipe(capitalize, decodeStr)(product.name) %></h1>
+
+<div id="product-form" class="wrapper fadeInDown">
+    <div id="formContent" class="auto-mg">
+        <form action="/products/update?_csrf=<%= csrfToken %>&_method=PUT" method="POST" 
+            id="edit-product-form" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="<%= product._id %>" />
+            <div class="form-group mb-3 mt-3">
+                <input type="text" class="form-control" id="product-name" name="name" 
+                    placeholder="Name" maxlength="100" value="<%= decodeStr(product.name) %>" />
+            </div>
+            <div class="form-group mb-3 mt-3">
+                <input type="number" class="form-control" id="product-price" name="price" 
+                    placeholder="Price" value="<%= product.price %>" />
+            </div>
+            <div class="form-group mb-3 mt-3">
+                <input type="number" class="form-control" id="product-quantity" name="quantity" 
+                    placeholder="Quantity" min="1" value="<%= product.quantity %>" />
+            </div>
+            <div class="form-group mb-3 mt-3">
+                <% if (!categories) { %>
+                    <div class="err-message">Product needs at least one category.</div>
+                <% } else { %>
+                    <select class="form-control" name="category" id="category">
+                        <option value="">Select a category</option>
+                        <% for (let category of categories) { %>
+                            <option value="<%= category.id %>"
+                                <% if (category.id.toString() === product.category.toString()) {%> selected<% } %>
+                            >
+                                <%= capitalize(category.name) %>
+                            </option>
+                        <% } %>
+                    </select>
+                <% } %>
+            </div>
+            <div class="form-group mb-3 mt-3">
+                <textarea name="description" id="description" cols="30" 
+                    placeholder="Your product description here" rows="10"><%= product.description %></textarea>
+            </div>
+            <div class="input-group mb-3 file-upload">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Upload</span>
+                </div>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="product_image" id="product_image">
+                    <label class="custom-file-label text-left" for="product_image">Choose file</label>
+                </div>
+                <img src="/images/products/<%= product.image %>" alt="<%= product.name %>" class="w-100 h-100 mt-3" />
+            </div>
+        
+            <input type="submit" class="fadeIn fourth" value="Update" />
+        </form>
+    </div>
+</div>
+    
+<%- include('../_partials/footer.ejs') %>

@@ -1,0 +1,24 @@
+<%- include('../_partials/header.ejs') %>
+<%- include('../_partials/navigation.ejs') %>
+
+<div id="signinform" class="wrapper fadeInDown">
+    <div id="formContent" class="auto-mg">
+        <h2 class="fadeIn first form-title">My Profile</h2>
+
+        <form action="/profile?_method=PUT" method="POST" id="profile-form">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <input type="text" id="firstname" class="fadeIn second" name="firstname" 
+                placeholder="First name" value="<%= currentUser.firstname %>" required />
+            <input type="text" id="lastname" class="fadeIn second" name="lastname" 
+                placeholder="Last name" value="<%= currentUser.lastname %>" required />
+            <input type="text" id="email" class="fadeIn third" name="email" 
+                placeholder="Email address" value="<%= currentUser.email %>" required />
+            <input type="password" id="password" class="fadeIn third" name="password" 
+                placeholder="Password"  />
+            <input type="submit" class="fadeIn fourth" value="Update" />
+        </form>
+    
+    </div>
+</div>
+
+<%- include('../_partials/footer.ejs') %>

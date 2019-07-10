@@ -1,0 +1,49 @@
+<%- include('../_partials/header.ejs') %>
+<%- include('../_partials/navigation.ejs') %>
+    <h1 class="text-center">Category list</h1>
+
+    <a href="/categories/add" class="btn btn-primary mb-1 float-right">Add new</a>
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Created</th>
+            <th scope="col">Updated</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+            <%
+              if (categories.length) {
+                let i = 1;
+                for (let category of categories) {
+            %>
+            <tr>
+                <th scope="row"><%= i %></th>
+                <td><%= pipe(capitalize, decodeStr)(category.name) %></td>
+                <td><%= formatStringDate(category.createdAt) %></td>
+                <td><%= formatStringDate(category.updatedAt) %></td>
+                <td>
+                  <a href="/categories/edit/<%= category._id %>">
+                      <i class="fas fa-edit"></i>
+                  </a>
+                  <a href="#" class="removeElement" data-form-id="<%= category._id %>">
+                    <i class="fas fa-trash"></i>
+                  </a>
+                  <form action="/categories/delete?_method=DELETE" method="post"
+                    id="remove-form-<%= category._id %>">
+                    <input type="hidden" name="id" value="<%= category._id %>" />
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                  </form>
+                </td>
+            </tr>
+            <% i++; } } else { %>
+            <tr>
+              <td colspan="5" class="text-center">No category found!</td>
+            </tr>
+            <% } %>
+        </tbody>
+      </table>
+    
+<%- include('../_partials/footer.ejs') %>

@@ -1,0 +1,32 @@
+<%- include('../_partials/header.ejs') %>
+<%- include('../_partials/navigation.ejs') %>
+
+<div id="signinform" class="wrapper fadeInDown">
+    <div id="formContent" class="auto-mg">
+        <h2 class="fadeIn first form-title">Node Commerce</h2>
+
+        <form action="/auth/login" method="POST" id="login-form" style="<%= signup ? 'display:none;' : '' %>">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <input type="text" id="lemail" class="fadeIn second" name="email" placeholder="Email address" required />
+            <input type="password" id="lpassword" class="fadeIn third" name="password" placeholder="Password"  required />
+            <input type="submit" class="fadeIn fourth" value="Log In" />
+        </form>
+
+        <form action="/auth/signup" method="POST" id="signup-form" style="<%= !signup ? 'display:none;' : '' %>">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <input type="text" id="firstname" class="fadeIn second" name="firstname" placeholder="First name" required />
+            <input type="text" id="lastname" class="fadeIn second" name="lastname" placeholder="Last name" required />
+            <input type="text" id="email" class="fadeIn third" name="email" placeholder="Email address" required />
+            <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password"  required />
+            <input type="submit" class="fadeIn fourth" value="Register" />
+        </form>
+    
+        <div class="formFooter">
+            <a class="underlineHover switch-signup" href="#" style="<%= signup ? 'display:none;' : '' %>">Don't have an account yet? <b>Signup</b></a>
+            <a class="underlineHover switch-signin" href="#" style="<%= !signup ? 'display:none;' : '' %>">Already registered? <b>Loign</b></a>
+        </div>
+    
+    </div>
+</div>
+<script src="/js/auth.js"></script>
+<%- include('../_partials/footer.ejs') %>
