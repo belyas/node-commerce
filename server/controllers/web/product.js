@@ -103,10 +103,21 @@ export default class Product {
         } catch (err) {
             // remove any failed product'image
             if (image) {
-                fs.unlinkSync(
-                    path.join(__dirname, '../../public/images/products/') +
-                        image.filename
-                );
+                if (
+                    fs.existsSync(
+                        path.join(
+                            __dirname,
+                            `../../public/images/products/${image.filename}`
+                        )
+                    )
+                ) {
+                    fs.unlinkSync(
+                        path.join(
+                            __dirname,
+                            `../../public/images/products/${image.filename}`
+                        )
+                    );
+                }
             }
 
             req.flash('error', typeof err === Error ? err.message : err);
@@ -201,10 +212,21 @@ export default class Product {
             if (productUpdated.n) {
                 // check if the image has been uploaded, then remove the old one
                 if (hasImage) {
-                    fs.unlinkSync(
-                        path.join(__dirname, '../../public/images/products/') +
-                            oldImage
-                    );
+                    if (
+                        fs.existsSync(
+                            path.join(
+                                __dirname,
+                                `../../public/images/products/${oldImage}`
+                            )
+                        )
+                    ) {
+                        fs.unlinkSync(
+                            path.join(
+                                __dirname,
+                                `../../public/images/products/${oldImage}`
+                            )
+                        );
+                    }
                 }
 
                 req.flash('success', 'Product has been successfully updated.');
@@ -234,10 +256,25 @@ export default class Product {
             );
 
             if (deletedProduct) {
-                fs.unlinkSync(
-                    path.join(__dirname, '../../public/images/products/') +
-                        deletedProduct.image
-                );
+                if (
+                    fs.existsSync(
+                        path.join(
+                            __dirname,
+                            `../../public/images/products/${
+                                deletedProduct.image
+                            }`
+                        )
+                    )
+                ) {
+                    fs.unlinkSync(
+                        path.join(
+                            __dirname,
+                            `../../public/images/products/${
+                                deletedProduct.image
+                            }`
+                        )
+                    );
+                }
             }
 
             req.flash('success', 'Product has been successfully deleted.');
