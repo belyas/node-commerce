@@ -14,9 +14,7 @@ const updateObject = (oldObject, newObjectProps) => {
 };
 
 const updateCart = (items, product) => {
-    const itemIndex = items.findIndex(
-        item => item._id && item._id === product._id
-    );
+    const itemIndex = getProductIndex(items, product._id);
     let updatedItems;
 
     // product already in items, then we update its quantity
@@ -36,6 +34,12 @@ const updateCart = (items, product) => {
     return updatedItems;
 };
 
+const removeItemFromCart = (items, productId) =>
+    [...items].filter(item => item._id !== productId);
+
+const getProductIndex = (items, productId) =>
+    items.findIndex(item => item._id && item._id === productId);
+
 const getCartTotalPrice = items => {
     return items.reduce((acc, item) => (acc += item.price * item.qty), 0);
 };
@@ -50,4 +54,5 @@ export {
     updateCart,
     getCartTotalPrice,
     getCartTotalItems,
+    removeItemFromCart,
 };
