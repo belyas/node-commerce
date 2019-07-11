@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import classes from './ProductRow.module.css';
 
-const ProductRow = ({ product }) => {
+const ProductRow = ({ product, handleRemove }) => {
     return (
         <div className={classes.ProductRow}>
             <img
@@ -18,7 +18,9 @@ const ProductRow = ({ product }) => {
                 </span>{' '}
                 X {product.qty}
             </div>
-            <span className={classes.ProductRowRemoveBtn}>
+            <span
+                className={classes.ProductRowRemoveBtn}
+                onClick={() => handleRemove(product)}>
                 <i className="fa fa-trash" aria-hidden="true"></i>
             </span>
         </div>
@@ -27,6 +29,7 @@ const ProductRow = ({ product }) => {
 
 ProductRow.propTypes = {
     product: PropTypes.object.isRequired,
+    handleRemove: PropTypes.func.isRequired,
 };
 
 export default ProductRow;
