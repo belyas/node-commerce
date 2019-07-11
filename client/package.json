@@ -16,7 +16,8 @@
         "redux": "^4.0.1",
         "redux-saga": "^1.0.3",
         "redux-thunk": "^2.3.0",
-        "source-map-explorer": "^2.0.1"
+        "source-map-explorer": "^2.0.1",
+        "lodash.template": ">=4.5.0"
     },
     "scripts": {
         "start": "react-scripts start",
