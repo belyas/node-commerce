@@ -45,26 +45,6 @@ describe('Auth component and sub components', () => {
         ).toEqual('Already registered? Loign');
     });
 
-    it('should redirect if isAuthenticated is set to true', () => {
-        const props = {
-            isAuthenticated: true,
-            isLogin: true, // indicate the login form
-            errors: {},
-            email: null,
-            password: null,
-            error: null,
-            blurHandler: () => ({}),
-            changeHandler: () => ({}),
-            loginSubmitHanlder: () => ({}),
-            toggleLoginHandler: () => ({}),
-            signupSubmitHanlder: () => ({}),
-        };
-        const wrapper = shallow(<Auth {...props} />);
-
-        // this is basically complaining about using Redirect in Login component
-        expect(() => wrapper.html()).toThrow();
-    });
-
     it('should display Login form component', () => {
         const props = {
             isLogin: true, // indicate the login form
