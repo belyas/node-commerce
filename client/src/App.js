@@ -17,6 +17,7 @@ const CategoryProducts = lazy(() =>
 const ProductDetail = lazy(() =>
     import('./containers/Products/ProductDetail/ProductDetait')
 );
+const Cart = lazy(() => import('./containers/Cart/Cart'));
 
 class App extends Component {
     componentDidMount() {
@@ -51,6 +52,7 @@ class App extends Component {
                                 }
                             />
                             <Route path="/logout" component={Logout} />
+                            <Route path="/cart" component={Cart} />
                         </Switch>
                     </Suspense>
                 </ErrorBoundary>
