@@ -1,0 +1,15 @@
+.CartRow {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: 100%;
+    border-bottom: #eee solid 1px;
+    padding: 5px 0;
+    align-items: center;
+}
+
+.CartRowItem img {
+    width: 60px;
+}
+.CartRowItem {
+    text-align: center;
+}
