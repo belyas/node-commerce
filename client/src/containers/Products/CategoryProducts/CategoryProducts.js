@@ -12,7 +12,7 @@ const CategoryProducts = ({
     loading,
     ...props
 }) => {
-    const categoryId = match.params.category_id;
+    const { category_id } = match.params;
     const childProps = {
         ...props,
         products,
@@ -21,10 +21,10 @@ const CategoryProducts = ({
 
     useEffect(() => {
         if (!products.length) {
-            getProducts(categoryId);
+            getProducts(category_id);
         }
         // eslint-disable-next-line
-    }, [categoryId]);
+    }, [category_id]);
 
     return <CategoryProductsComponent {...childProps} />;
 };
@@ -39,18 +39,14 @@ CategoryProducts.propTypes = {
     getProducts: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state, { match }) => {
-    return {
-        products: state.product.category_products[match.params.category_id],
-        loading: state.product.loading,
-    };
-};
+const mapStateToProps = (state, { match }) => ({
+    products: state.product.category_products[match.params.category_id],
+    loading: state.product.loading,
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
-        getProducts: category_id => dispatch(getCategoryProducts(category_id)),
-    };
-};
+const mapDispatchToProps = dispatch => ({
+    getProducts: category_id => dispatch(getCategoryProducts(category_id)),
+});
 
 export default connect(
     mapStateToProps,

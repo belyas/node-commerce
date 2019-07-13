@@ -32,12 +32,10 @@ ProductDetail.propTypes = {
     match: PropTypes.object,
 };
 
-const mapStateToProps = (state, { match }) => {
-    return {
-        product: state.product.single_product[match.params.product_id],
-        loading: state.product.loading,
-    };
-};
+const mapStateToProps = (state, { match }) => ({
+    product: state.product.single_product[match.params.product_id],
+    loading: state.product.loading,
+});
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators({ getProduct }, dispatch);

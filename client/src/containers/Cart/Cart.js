@@ -12,8 +12,6 @@ Cart.propTypes = {
     cart: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ cart }) => {
-    return { cart };
-};
+const mapStateToProps = ({ cart }) => ({ cart });
 
 export default connect(mapStateToProps)(Cart);

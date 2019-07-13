@@ -22,12 +22,10 @@ Menu.propTypes = {
     fetchCategories: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => {
-    return {
-        categories: state.category.categories,
-        loading: state.category.loading,
-    };
-};
+const mapStateToProps = state => ({
+    categories: state.category.categories,
+    loading: state.category.loading,
+});
 
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({ fetchCategories }, dispatch);

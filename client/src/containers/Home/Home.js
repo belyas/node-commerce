@@ -24,12 +24,10 @@ Home.propTypes = {
     getProducts: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => {
-    return {
-        loading: state.product.loading,
-        products: state.product.products,
-    };
-};
+const mapStateToProps = state => ({
+    loading: state.product.loading,
+    products: state.product.products,
+});
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators({ getProducts }, dispatch);
