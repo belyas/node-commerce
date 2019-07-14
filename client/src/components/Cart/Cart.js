@@ -16,7 +16,7 @@ const Cart = ({ cart: { items, totalItems, totalPrice } }) => {
                 <div className={classes.CartHeaderItem}>Quantity</div>
                 <div className={classes.CartHeaderItem}>Total</div>
             </div>
-            {items.length > 0 &&
+            {!!items.length &&
                 items.map(item => <CartRow key={item._id} item={item} />)}
             <div className={classes.CartTotalPrice}>
                 Totals: <span>${totalPrice}</span>

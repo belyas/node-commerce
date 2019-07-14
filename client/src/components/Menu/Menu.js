@@ -3,12 +3,12 @@ import { NavLink } from 'react-router-dom';
 import { Spinner } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-const Menu = ({ loading, categories }) => {
+const Menu = ({ loading, categories = [] }) => {
     return (
         <div className="navbar navbar-expand-md navbar-light bg-light justify-content-center">
             <ul className="nav">
                 {loading && <Spinner size="sm" color="primary" />}
-                {categories.length > 0 &&
+                {!!categories.length &&
                     categories.map(category => {
                         return (
                             <li className="nav-item" key={category._id}>

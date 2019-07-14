@@ -42,14 +42,12 @@ ProductCard.propTypes = {
     setCartItem: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        setCartItem: product => {
-            product.qty = 1; // hack qty for now
-            dispatch(addToCart(product));
-        },
-    };
-};
+const mapDispatchToProps = dispatch => ({
+    setCartItem: product => {
+        product.qty = 1; // hack qty for now
+        dispatch(addToCart(product));
+    },
+});
 
 export default connect(
     null,

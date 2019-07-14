@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 import Product from '../Product/ProductCard/ProductCard';
 import classes from '../Product/Product.module.css';
 
-const Home = ({ loading, products }) => {
+const Home = ({ loading, products = [] }) => {
     return (
         <div className={classes.products__list}>
             {loading && <Spinner color="primary" />}
-            {products &&
+            {!!products.length &&
                 products.map(product => {
                     return <Product key={product._id} product={product} />;
                 })}
@@ -22,4 +22,4 @@ Home.propTypes = {
     products: PropTypes.array.isRequired,
 };
 
-export default Home;
+export default React.memo(Home);

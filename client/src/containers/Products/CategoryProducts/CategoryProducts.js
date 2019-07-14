@@ -39,9 +39,9 @@ CategoryProducts.propTypes = {
     getProducts: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state, { match }) => ({
-    products: state.product.category_products[match.params.category_id],
-    loading: state.product.loading,
+const mapStateToProps = ({ product }, { match: { params } }) => ({
+    products: product.category_products[params.category_id],
+    loading: product.loading,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 import Product from '../ProductCard/ProductCard';
 import classes from '../Product.module.css';
 
-const CategoryProducts = ({ products, loading }) => {
+const CategoryProducts = ({ products = [], loading }) => {
     return (
         <div className={classes.products__list}>
             {loading && <Spinner color="primary" />}
-            {products &&
+            {!!products.length &&
                 products.map(product => {
                     return <Product key={product._id} product={product} />;
                 })}
