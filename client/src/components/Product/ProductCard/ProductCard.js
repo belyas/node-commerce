@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import classes from '../Product.module.css';
 import { addToCart } from '../../../store/actions';
 
-const ProductCard = ({ product, setCartItem }) => {
+export const ProductCard = ({ product, setCartItem }) => {
     return (
         <div className={classes.ProductRow}>
             <img
@@ -14,7 +14,6 @@ const ProductCard = ({ product, setCartItem }) => {
                 alt={product.name}
                 className={classes.ProductRowImg}
             />
-
             <div className={classes.ProductRowBottom}>
                 <Link
                     to={`/product/${product._id}`}
