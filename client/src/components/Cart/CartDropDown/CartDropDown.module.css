@@ -1,0 +1,47 @@
+.DropDown {
+    position: absolute;
+    top: 2em;
+    display: flex;
+    left: -12em;
+    width: 250px;
+    background-color: #fff;
+    flex-direction: column;
+    color: #333;
+    border: 1px solid #333;
+    box-sizing: border-box;
+    padding: 5px;
+    z-index: 999;
+}
+.EmptyCart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px;
+}
+.ProductTotalPrice {
+    display: flex;
+    justify-content: center;
+    border-top: solid 1px #dad8d8;
+    padding: 5px 0;
+    border-bottom: solid 1px #dad8d8;
+}
+.Price {
+    color: #cc3434;
+}
+.CheckoutBtn {
+    text-decoration: none;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    margin: 10px auto 0 auto;
+    background-color: #343a40;
+    color: #fff;
+    padding: 5px;
+    box-sizing: border-box;
+}
+.CheckoutBtn:hover {
+    text-decoration: none;
+    border: #343a40 solid 1px;
+    background-color: #fff;
+    color: #343a40;
+}

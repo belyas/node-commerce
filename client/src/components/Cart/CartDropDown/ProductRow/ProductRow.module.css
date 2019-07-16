@@ -1,0 +1,24 @@
+.ProductRow {
+    display: grid;
+    grid-template-columns: 30% 60% 10%;
+    grid-gap: 5px;
+    margin-bottom: 10px;
+}
+.ProductRowImg {
+    width: 70px;
+    height: 70px;
+}
+.ProductRowName {
+    font-size: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.ProductRowPrice {
+    color: #cc3434;
+}
+.ProductRowRemoveBtn {
+    display: flex;
+    justify-content: flex-start;
+    cursor: pointer;
+}

@@ -1,0 +1,34 @@
+.Cart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 80%;
+    margin: 20px auto 0;
+}
+.CartTitle {
+    font-size: 25px;
+}
+.CartHeader {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: 100%;
+    margin-top: 30px;
+    border-bottom: #eee solid 1px;
+    padding-bottom: 5px;
+}
+.CartHeaderItem {
+    font-weight: bold;
+    text-align: center;
+}
+.CartTotalPrice {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.CartTotalPrice span {
+    color: red;
+    margin-left: 20px;
+}

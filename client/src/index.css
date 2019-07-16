@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+        'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#products-list {
+    margin: 10px 0px;
+}
+#products-list > div {
+    margin-bottom: 10px;
+}
+#products-list .card-img-top {
+    max-height: 200px;
+}
+#product-details {
+    display: flex;
+    margin-top: 20px;
+}
+#product-details img {
+    width: 300px;
+}
+.product-price {
+    color: #e80754;
+    font-size: 17px;
+    font-weight: bold;
+}

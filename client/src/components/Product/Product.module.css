@@ -1,0 +1,47 @@
+.products__list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(auto, 240px));
+    grid-column-gap: 0.5em;
+    grid-row-gap: 1em;
+    margin-top: 1em;
+}
+
+.ProductRow {
+    display: flex;
+    flex-direction: column;
+    box-shadow: -1px 1px 8px 1px #3333;
+}
+.ProductRowImg {
+    height: 220px;
+    width: 100%;
+}
+.ProductRowBtn {
+    display: none;
+    align-self: center;
+    position: absolute;
+    margin-top: 15vh;
+    background-color: #fff;
+    padding: 5px 10px;
+    opacity: 0.9;
+    cursor: pointer;
+    border-radius: 6px;
+}
+.ProductRow:hover .ProductRowBtn {
+    display: flex;
+}
+
+.ProductRowBottom {
+    display: flex;
+    height: 3em;
+    align-items: center;
+    padding: 0.5em;
+    justify-content: space-between;
+}
+
+.truncate {
+    width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
