@@ -6,11 +6,14 @@
     grid-row-gap: 1em;
     margin-top: 1em;
 }
-
 .ProductRow {
     display: flex;
     flex-direction: column;
     box-shadow: -1px 1px 8px 1px #3333;
+}
+.ProductRow:hover {
+    background-color: #fff;
+    opacity: 0.8;
 }
 .ProductRowImg {
     height: 220px;
