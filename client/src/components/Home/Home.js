@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
 
 import Product from '../Product/ProductCard/ProductCard';
 import withSpinner from '../../hoc/WithSpinner/WithSpinner';
@@ -22,4 +23,7 @@ Home.propTypes = {
     products: PropTypes.array.isRequired,
 };
 
-export default React.memo(withSpinner(Home));
+export default compose(
+    React.memo,
+    withSpinner
+)(Home);
