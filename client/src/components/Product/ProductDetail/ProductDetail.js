@@ -1,14 +1,14 @@
 import React from 'react';
-import { Spinner, Button } from 'reactstrap';
+import { Button } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { addToCart } from '../../../store/actions';
+import withSpinner from '../../../hoc/WithSpinner/WithSpinner';
 
 const ProductDetail = ({ product, loading, setCartItem }) => {
     return (
         <>
-            {loading && <Spinner color="primary" />}
             {!loading && product && (
                 <div id="product-details" className="col-md-12">
                     <div className="col-md-6 col-sm-12">
@@ -41,7 +41,7 @@ const ProductDetail = ({ product, loading, setCartItem }) => {
 };
 
 ProductDetail.propTypes = {
-    loading: PropTypes.bool.isRequired,
+    loading: PropTypes.bool,
     product: PropTypes.shape({
         name: PropTypes.string,
         image: PropTypes.string,
@@ -64,4 +64,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     null,
     mapDispatchToProps
-)(ProductDetail);
+)(withSpinner(ProductDetail));
