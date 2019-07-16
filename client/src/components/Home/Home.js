@@ -1,14 +1,14 @@
 import React from 'react';
-import { Spinner } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 import Product from '../Product/ProductCard/ProductCard';
+import withSpinner from '../../hoc/WithSpinner/WithSpinner';
+
 import classes from '../Product/Product.module.css';
 
-const Home = ({ loading, products = [] }) => {
+const Home = ({ products = [] }) => {
     return (
         <div className={classes.products__list}>
-            {loading && <Spinner color="primary" />}
             {!!products.length &&
                 products.map(product => {
                     return <Product key={product._id} product={product} />;
@@ -18,8 +18,8 @@ const Home = ({ loading, products = [] }) => {
 };
 
 Home.propTypes = {
-    loading: PropTypes.bool.isRequired,
+    loading: PropTypes.bool,
     products: PropTypes.array.isRequired,
 };
 
-export default React.memo(Home);
+export default React.memo(withSpinner(Home));
