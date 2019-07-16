@@ -1,6 +1,6 @@
 import axios from '../axios';
 
-const loginAuth = async (values) => {
+const loginAuth = async values => {
     try {
         const res = await axios.post('/auth', {
             email: values.email,
@@ -11,10 +11,10 @@ const loginAuth = async (values) => {
         if (data.token) {
             localStorage.setItem('token', data.token);
             localStorage.setItem('userId', data.userId);
-    
+
             return true;
         }
-    
+
         console.log('Error: ', data.error);
         return false;
     } catch (err) {
