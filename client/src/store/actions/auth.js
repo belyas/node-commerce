@@ -2,26 +2,20 @@ import axios from '../../axios';
 import { setAuthToken } from '../../utils/api';
 import * as actionTypes from '../actions/actionTypes';
 
-export const authStart = () => {
-    return {
-        type: actionTypes.AUTH_START,
-    };
-};
+export const authStart = () => ({
+    type: actionTypes.AUTH_START,
+});
 
-export const authSuccess = (token, userId) => {
-    return {
-        type: actionTypes.AUTH_SUCCESS,
-        token,
-        userId,
-    };
-};
+export const authSuccess = (token, userId) => ({
+    type: actionTypes.AUTH_SUCCESS,
+    token,
+    userId,
+});
 
-export const authFailure = error => {
-    return {
-        type: actionTypes.AUTH_FAIL,
-        error,
-    };
-};
+export const authFailure = error => ({
+    type: actionTypes.AUTH_FAIL,
+    error,
+});
 
 export const authLoggedout = () => {
     localStorage.removeItem('token');
