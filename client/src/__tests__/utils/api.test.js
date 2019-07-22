@@ -32,10 +32,10 @@ describe('Api helper', () => {
             },
         };
         const response = setAuthToken(client);
-        const savedToen = localStorage.getItem('token');
+        const savedToken = localStorage.getItem('token');
 
         expect(response.defaults.headers.common['Authorization']).toEqual(
-            'Bearer ' + savedToen
+            'Bearer ' + savedToken
         );
     });
 
