@@ -20,6 +20,7 @@ const CartMenu = ({ cart, isOpen, toggleDropDown }) => {
                 products={cart.items}
                 totalPrice={cart.totalPrice}
                 open={isOpen}
+                onToggleDropDown={toggleDropDown}
             />
         </div>
     );

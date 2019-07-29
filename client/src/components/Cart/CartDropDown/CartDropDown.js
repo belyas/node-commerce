@@ -7,7 +7,13 @@ import { removeFromCart } from '../../../store/actions/cart';
 import ProductRow from './ProductRow/ProductRow';
 import classes from './CartDropDown.module.css';
 
-const CartDropDown = ({ open, products, totalPrice, removeItemFromCart }) => {
+const CartDropDown = ({
+    open,
+    products,
+    totalPrice,
+    removeItemFromCart,
+    onToggleDropDown,
+}) => {
     let displayedContent = <p className={classes.EmptyCart}>Empty cart!</p>;
 
     if (open && products.length > 0) {
@@ -17,7 +23,10 @@ const CartDropDown = ({ open, products, totalPrice, removeItemFromCart }) => {
                     <b>Total price:</b>{' '}
                     <span className={classes.Price}>${totalPrice}</span>
                 </div>
-                <Link to="/cart" className={classes.CheckoutBtn}>
+                <Link
+                    to="/cart"
+                    className={classes.CheckoutBtn}
+                    onClick={onToggleDropDown}>
                     Checkout
                 </Link>
             </>
