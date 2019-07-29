@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import classes from './ProductRow.module.css';
@@ -32,4 +32,4 @@ ProductRow.propTypes = {
     handleRemove: PropTypes.func.isRequired,
 };
 
-export default ProductRow;
+export default memo(ProductRow);
