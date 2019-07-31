@@ -1,3 +1,4 @@
+import * as api from '../../../apis/auth';
 import {
     authStart,
     authSuccess,
@@ -22,6 +23,24 @@ import {
 } from '../../../store/actions/actionTypes';
 
 describe('Auth action creators', () => {
+    let mockedDispatch;
+    let response;
+    let email;
+    let password;
+
+    beforeEach(async () => {
+        mockedDispatch = jest.fn();
+        response = {
+            token: 'token',
+            userId: 123,
+        };
+        api.loginAuth = jest.fn().mockResolvedValue(response);
+        email = 'some@example.org';
+        password = '22344';
+
+        const action = auth(email, password);
+        await action(mockedDispatch);
+    });
     it('should start auth', () => {
         expect(authStart()).toEqual({ type: AUTH_START });
     });
@@ -82,5 +101,37 @@ describe('Auth action creators', () => {
 
     it('should have a success signup auth', () => {
         expect(signupAuthSuccess()).toEqual({ type: AUTH_SIGNUP_SUCCESS });
+    });
+
+    describe('Auth login', () => {
+        it('should call loginauth', () => {
+            expect(api.loginAuth).toHaveBeenCalled();
+        });
+
+        it('should call loginauth with params', () => {
+            expect(api.loginAuth).toBeCalledWith({ email, password });
+        });
+
+        it('should return mocked dispatch with correct data', () => {
+            expect(mockedDispatch).toHaveBeenCalledTimes(2);
+            expect(mockedDispatch).toHaveBeenLastCalledWith({
+                type: AUTH_SUCCESS,
+                token: response.token,
+                userId: response.userId,
+            });
+        });
+
+        it('should return auth failure', async () => {
+            const mockedErrDispatch = jest.fn();
+            api.loginAuth = jest
+                .fn()
+                .mockRejectedValue(new Error('Async error'));
+            const action = auth(email, password);
+            await action(mockedErrDispatch);
+
+            expect(mockedErrDispatch).toBeCalledWith(
+                authFailure('Invalid email or password')
+            );
+        });
     });
 });
