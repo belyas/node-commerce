@@ -1,6 +1,7 @@
 import axios from '../../axios';
 import { setAuthToken } from '../../utils/api';
 import * as actionTypes from '../actions/actionTypes';
+import * as api from '../../apis/auth';
 
 export const authStart = () => ({
     type: actionTypes.AUTH_START,
@@ -31,20 +32,18 @@ export const auth = (email, password) => {
         dispatch(authStart());
 
         try {
-            const res = await axios.post('/auth', {
-                email,
-                password,
-            });
-            const data = await res.data;
+            const data = await api.loginAuth({ email, password });
 
-            if (data.token) {
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('userId', data.userId);
-                // const expirationDate = new Date(new Date().getTime() + data.expiresIn * 1000);
-                dispatch(authSuccess(data.token, data.userId));
-            } else {
-                dispatch(authFailure(data.error));
+            if (!data) {
+                return dispatch(authFailure('Invalid email or password'));
             }
+
+            const { token, userId } = data;
+
+            dispatch(authSuccess(token, userId));
+
+            localStorage.setItem('token', token);
+            localStorage.setItem('userId', userId);
         } catch (err) {
             dispatch(authFailure('Invalid email or password'));
         }
