@@ -27,7 +27,7 @@
     "express": "^4.16.4",
     "express-session": "^1.16.1",
     "he": "^1.2.0",
-    "helmet": "^3.18.0",
+    "helmet": "^3.21.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": ">=4.17.13",
     "method-override": "^3.0.0",
@@ -48,6 +48,7 @@
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0",
+    "eslint-utils": "^1.4.2",
     "jest": "^24.7.1",
     "nodemon": "^1.18.11"
   }
