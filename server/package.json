@@ -27,7 +27,7 @@
     "dotenv": "^7.0.0",
     "ejs": "^2.7.4",
     "express": "^4.16.4",
-    "express-session": "^1.17.0",
+    "express-session": "^1.17.1",
     "he": "^1.2.0",
     "helmet": "^3.21.3",
     "jsonwebtoken": "^8.5.1",
