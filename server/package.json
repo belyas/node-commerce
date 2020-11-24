@@ -38,7 +38,7 @@
     "multer": "^1.4.1",
     "node-fetch": "^2.6.1",
     "validator": "^10.11.0",
-    "snyk": "^1.316.2"
+    "snyk": "^1.425.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.3",
