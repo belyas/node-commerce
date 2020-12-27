@@ -21,7 +21,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "connect-flash": "^0.1.1",
-    "connect-mongodb-session": "^2.3.1",
+    "connect-mongodb-session": "^2.4.1",
     "cors": "^2.8.5",
     "csurf": "^1.11.0",
     "dotenv": "^7.0.0",
@@ -29,16 +29,16 @@
     "express": "^4.16.4",
     "express-session": "^1.17.1",
     "he": "^1.2.0",
-    "helmet": "^3.21.3",
+    "helmet": "^3.23.3",
     "jsonwebtoken": "^8.5.1",
     "lodash": ">=4.17.20",
     "method-override": "^3.0.0",
-    "mongoose": "^5.10.7",
+    "mongoose": "^5.11.7",
     "mongoose-timestamp": "^0.6.0",
     "multer": "^1.4.1",
     "node-fetch": "^2.6.1",
     "validator": "^10.11.0",
-    "snyk": "^1.316.2"
+    "snyk": "^1.425.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.3",
